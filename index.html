@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making">
+  <meta name="keywords" content="Embodied Agent, LLMs, Embodied Decision Making, Physical State Change">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favi.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var toggles = document.querySelectorAll('.toggle-section');
+      toggles.forEach(function(toggle) {
+        toggle.addEventListener('click', function() {
+          var content = document.getElementById(toggle.getAttribute('aria-controls'));
+          content.classList.toggle('is-active');
+          toggle.children[1].classList.toggle('fa-angle-down');
+          toggle.children[1].classList.toggle('fa-angle-up');
+        });
+      });
+    });
+  </script>
+
+  <style>
+    .collapse-content {
+      display: none;
+      margin-top: 10px;
+    }
+    .collapse-content.is-active {
+      display: block;
+    }
+    .toggle-section .icon.is-small {
+      transition: transform 0.3s ease;
+    }
+    .toggle-section .fa-angle-up {
+      transform: rotate(180deg);
+    }
+  </style>
+
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">
+            <!-- <img src="static/images/favicon_vdlm.png" alt="Icon" style="vertical-align: middle; height: 50px; margin-right: 10px; margin-bottom: 9px"> -->
+            Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://limanling.github.io/">Manling Li</a><sup>1,†</sup>,</span>
+            <span class="author-block">
+              <a href="https://shiyu-zhao.netlify.app/">Shiyu Zhao</a><sup>1,†</sup>,</span>
+            <span class="author-block">
+              <a href="https://qinengwang-aiden.github.io/">Qineng Wang</a><sup>1,†</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://jameskrw.github.io/">Kangrui Wang</a><sup>1,†</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://bryanzhou008.github.io/">Yu Zhou</a><sup>1,†</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/sanjana-srivastava5/">Sanjana Srivastava</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://www.cemgokmen.com/">Cem Gokmen</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://profiles.stanford.edu/tonyhlee">Tony Lee</a><sup>2</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://www.cs.columbia.edu/~lierranli/">Li Erran Li</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://ai.stanford.edu/~zharu/">Ruohan Zhang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://weiyuliu.com/">Weiyu Liu</a><sup>1</sup>,
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://cs.stanford.edu/~pliang/">Percy Liang</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://vision.stanford.edu/feifeili/">Li Fei-Fei</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="http://jiayuanm.com/">Jiayuan Mao</a><sup>3</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://jiajunwu.com/">Jiajun Wu</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Stanford University,</span>
+            <span class="author-block"><sup>2</sup>Amazon,</span>
+            <span class="author-block"><sup>3</sup>MIT</span>
+          </div>
+          <div class="'is-size-5 publication-authors">
+            <span class="author-block"><sup>†</sup>Equal contribution</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <!-- We should insert arxiv link below! -->
+                <a href="https://arxiv.org/" 
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/MikeWangWZHL/VDLM/raw/main/static/videos/vdlm_teaser_vid.mp4"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/embodied-agent-eval/embodied-agent-eval"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Model Link. -->
+              <!-- <span class="link-block">
+                <a href="https://huggingface.co/mikewang/PVD-160k-Mistral-7b"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <p style="font-size:18px">🤗</p>
+                  </span>
+                  <span>Model</span>
+                </a> -->
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://github.com/embodied-agent-eval/embodied-agent-eval/tree/main/dataset"
+                class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                  <p style="font-size:18px">🗞️</p>
+                </span>
+                <span>Dataset</span>
+              </a>
+              <!-- Demo link. -->
+              <span class="link-block">
+                <a href="https://github.com/embodied-agent-eval/embodied-agent-eval"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <!-- We should insert demo link below -->
+                    <p style="font-size:18px">🚀</p>
+                  </span>
+                  <span>Demo</span>
+                </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted controls playsinline loop height="100%">
+        <!-- Maybe we should insert a video here -->
+        <!-- <source src="./static/videos/vdlm_teaser_vid.mp4"
+                type="video/mp4"> -->
+      </video>
+      <!-- <h2 class="subtitle has-text-centered">
+        <span class="dnerf">VDLM </span>
+      </h2> -->
+    </div>
+  </div>
+</section>
+
+
+<!-- Abstract -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            <b>Problem:</b> We aim to evaluate Large Language Models (LLMs) for embodied decision making. While a significant body of work has been leveraging LLMs for decision making in embodied environments, we still lack a systematic understanding of their performances, because they are usually applied in different domains for different purposes, and built based on different inputs and outputs. Furthermore, existing evaluations tend to rely solely on a final success rate, making it difficult to pinpoint what ability is missing in LLMs and where the problem lies, which in turn, blocks embodied agents from leveraging LLMs effectively and selectively.
+          </p>
+          <p>
+            <b>Method:</b> To address these limitations, we propose a generalized interface (<b>Embodied Agent Interface</b>) that supports the formalization of various types of tasks and input-output specifications of LLM-based modules. Specifically, it allows us to unify 1) a broad set of embodied decision making tasks involving both state and temporally extended goals, 2) four commonly-used LLM-based modules for decision making: goal interpretation, subgoal decomposition, action sequencing, and transition modeling, and 3) a collection of fine-grained metrics which break down evaluation into various types of errors, such as hallucination errors, affordance errors, various types of planning errors, etc.
+          </p>
+          <p>
+            <b>Conclusion:</b> Overall, our benchmark offers a comprehensive and systematic assessment of LLMs' performance for different subtasks, pinpointing the strengths and weaknesses in LLM-powered embodied AI systems, and providing insights for effective and selective use of LLMs in embodied decision making.
+          </p>
+        </div>
+        <figure>
+          <img src="static/images/teaser.png" alt="VDLM overview." class="VDLM_overview_image"/>
+          <figcaption class="has-text-centered">
+            <b>Figure 1:</b> <b>Embodied Agent Interface</b> unifies a broad set of tasks involving both state and temporally extended goals and four LLM-based modules for decision making.
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Performance</h2>
+        <h3 class="title is-4">Tasks</h3>
+        <div class="content has-text-justified">
+          <figure id="downstream_tasks_img">
+            <img src="static/images/downstream_tasks.png" alt="downstream tasks." class="downstream_tasks"/>
+            <figcaption><b>Figure 4:</b> Our full evaluation benchmark, composed of 9 zero-shot tasks on vector graphics.</figcaption>
+          </figure>
+          <p>
+            We construct an evaluation benchmark that comprises 9 tasks which cover important aspects of low-level visual perception and vision-language reasoning, including measurements, spatial relations, counting, logical reasoning, and complex reasoning problems. See <a href="#downstream_tasks_img">Figure 4</a> for the task examples.
+          </p>
+        <h3 class="title is-4">Results</h3>
+        <div class="content has-text-justified">
+          <figure id="results_img">
+            <img src="static/images/main_results.png" alt="results." class="results"/>
+            <figcaption><b>Figure 5:</b> Zero-shot accuracy on 9 tasks.</figcaption>
+          </figure>
+          <p>
+            VDLM outperforms both open- and closed-source state-of-the-art Large Multimodal Models, including <a href="https://arxiv.org/abs/2310.03744">LLaVA-1.5</a> and <a href="https://openai.com/research/gpt-4v-system-card">GPT-4V</a>, demonstrating the effectiveness of its text-based, disentangled framework in achieving precise low-level perception and reasoning.
+            VDLM also outperforms previous visual programming methods, i.e., <a href="https://viper.cs.columbia.edu/">ViperGPT</a>, indicating that these models are limited by the capability of the vision-language processors, such as <a href="https://github.com/microsoft/GLIP">GLIP</a> and <a href="https://arxiv.org/abs/2301.12597">BLIP2</a>, especially in processing low-level primitives such as angles and shapes.
+          </p>
+  </div>
+</section> -->
+
+
+<!-- <section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Resources</h2>
+
+        <p>
+          💻 <b>Code:</b> <a href="https://github.com/MikeWangWZHL/VDLM">VDLM Code</a>
+        </p>
+
+        <p>
+          🍉 <b>Demo (Jupyter Notebook):</b> <a href="https://github.com/MikeWangWZHL/VDLM/blob/main/demo.ipynb">VDLM Demo</a>
+        </p>
+
+        <p>
+          🤗 <b>Pretrained SVG-to-PVD Model:</b> <a href="https://huggingface.co/mikewang/PVD-160k-Mistral-7b">PVD-160k-Mistral-7b</a>
+        </p>
+        
+        <p>
+          🤗 <b>SVG-to-PVD Dataset:</b> <a href="https://huggingface.co/datasets/mikewang/PVD-160K">PVD-160K</a>
+        </p>
+  </div>
+</section> -->
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>
+      <!-- @misc{wang2024textbased,
+        title={Text-Based Reasoning About Vector Graphics}, 
+        author={Zhenhailong Wang and Joy Hsu and Xingyao Wang and Kuan-Hao Huang and Manling Li and Jiajun Wu and Heng Ji},
+        year={2024},
+        eprint={2404.06479},
+        archivePrefix={arXiv},
+        primaryClass={cs.CL}
+      } -->
+    </code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+      href="">
+      <i class="fas fa-file-pdf"></i>
+    </a>
+    <a class="icon-link" href="https://github.com/mikewangwzhl" class="external-link" disabled>
+      <i class="fab fa-github"></i>
+    </a>
+  </div> -->
+  <div class="content has-text-centered">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <!-- <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p> -->
+          <p>
+            This website's template is borrowed from <a
+              href="https://github.com/nerfies/nerfies.github.io">nerfies</a>. We thank the authors for open-sourcing their code.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
