@@ -1,0 +1,532 @@
+[
+  {
+    "label": "AgentLM-13b (13B, SIFT)",
+    "data": [
+      1.71,
+      7.34,
+      9.22,
+      10.07,
+      10.41
+    ]
+  },
+  {
+    "label": "AgentLM-70b (70B, SIFT)",
+    "data": [
+      6.48,
+      17.75,
+      24.91,
+      28.16,
+      28.67
+    ]
+  },
+  {
+    "label": "AgentLM-7b (7B, SIFT)",
+    "data": [
+      0.0,
+      4.44,
+      5.29,
+      6.48,
+      7.34
+    ]
+  },
+  {
+    "label": "CodeActAgent-Llama-2-7b (7B, SIFT)",
+    "data": [
+      2.56,
+      20.14,
+      26.11,
+      33.62,
+      34.98
+    ]
+  },
+  {
+    "label": "CodeActAgent-Mistral-7b-v0.1 (7B, SIFT)",
+    "data": [
+      3.24,
+      26.45,
+      35.15,
+      42.32,
+      44.2
+    ]
+  },
+  {
+    "label": "CodeLlama-13b (13B, Base)",
+    "data": [
+      0.51,
+      13.65,
+      17.92,
+      19.28,
+      18.43
+    ]
+  },
+  {
+    "label": "CodeLlama-13b-Instruct (13B, SIFT)",
+    "data": [
+      1.54,
+      12.63,
+      13.14,
+      15.02,
+      14.51
+    ]
+  },
+  {
+    "label": "CodeLlama-34b (34B, Base)",
+    "data": [
+      0.17,
+      16.21,
+      23.04,
+      25.94,
+      28.16
+    ]
+  },
+  {
+    "label": "CodeLlama-34b-Instruct (34B, SIFT)",
+    "data": [
+      2.56,
+      10.07,
+      14.68,
+      15.36,
+      17.06
+    ]
+  },
+  {
+    "label": "CodeLlama-70b-Instruct (70B, SIFT)",
+    "data": [
+      2.22,
+      5.97,
+      9.73,
+      9.04,
+      8.7
+    ]
+  },
+  {
+    "label": "CodeLlama-7b (7B, Base)",
+    "data": [
+      0.34,
+      4.1,
+      7.17,
+      7.17,
+      4.27
+    ]
+  },
+  {
+    "label": "CodeLlama-7b-Instruct (7B, SIFT)",
+    "data": [
+      0.34,
+      7.85,
+      10.24,
+      9.73,
+      8.7
+    ]
+  },
+  {
+    "label": "CodeQwen1.5-7B-Chat (7B, SIFT)",
+    "data": [
+      2.05,
+      28.67,
+      33.45,
+      38.23,
+      39.25
+    ]
+  },
+  {
+    "label": "Eurus-70B-KTO (70B, RLHF)",
+    "data": [
+      16.63,
+      40.83,
+      45.97,
+      47.92,
+      49.39
+    ]
+  },
+  {
+    "label": "Eurus-70B-NCA (70B, RLHF)",
+    "data": [
+      3.75,
+      32.08,
+      40.61,
+      47.44,
+      47.95
+    ]
+  },
+  {
+    "label": "Eurus-70B-SFT (70B, SIFT)",
+    "data": [
+      1.02,
+      30.38,
+      37.54,
+      44.88,
+      43.34
+    ]
+  },
+  {
+    "label": "Eurus-7B-DPO (7B, RLHF)",
+    "data": [
+      12.96,
+      29.34,
+      30.32,
+      30.07,
+      29.34
+    ]
+  },
+  {
+    "label": "Eurus-7B-KTO (7B, RLHF)",
+    "data": [
+      8.53,
+      24.91,
+      30.72,
+      32.59,
+      34.98
+    ]
+  },
+  {
+    "label": "Eurus-7B-NCA (7B, RLHF)",
+    "data": [
+      9.78,
+      29.34,
+      34.72,
+      35.21,
+      36.67
+    ]
+  },
+  {
+    "label": "Eurus-7B-SFT (7B, SIFT)",
+    "data": [
+      2.9,
+      27.65,
+      31.23,
+      32.94,
+      33.45
+    ]
+  },
+  {
+    "label": "Lemur-70b-chat-v1 (70B, SIFT)",
+    "data": [
+      3.75,
+      26.96,
+      35.67,
+      37.54,
+      37.03
+    ]
+  },
+  {
+    "label": "Lemur-70b-v1 (70B, Base)",
+    "data": [
+      1.02,
+      17.92,
+      23.55,
+      25.26,
+      26.28
+    ]
+  },
+  {
+    "label": "Llama-2-13b (13B, Base)",
+    "data": [
+      0.17,
+      11.43,
+      15.53,
+      15.19,
+      14.51
+    ]
+  },
+  {
+    "label": "Llama-2-13b-chat (13B, RLHF)",
+    "data": [
+      4.1,
+      12.46,
+      12.46,
+      13.31,
+      11.95
+    ]
+  },
+  {
+    "label": "Llama-2-70b (70B, Base)",
+    "data": [
+      1.88,
+      19.45,
+      24.57,
+      26.45,
+      26.45
+    ]
+  },
+  {
+    "label": "Llama-2-70b-chat (70B, RLHF)",
+    "data": [
+      4.27,
+      14.33,
+      15.7,
+      16.55,
+      17.92
+    ]
+  },
+  {
+    "label": "Llama-2-7b (7B, Base)",
+    "data": [
+      0.17,
+      5.63,
+      7.34,
+      8.87,
+      9.73
+    ]
+  },
+  {
+    "label": "Llama-2-7b-chat (7B, RLHF)",
+    "data": [
+      1.02,
+      4.27,
+      6.66,
+      6.48,
+      7.34
+    ]
+  },
+  {
+    "label": "MAmmoTH-7B-Mistral (7B, SIFT)",
+    "data": [
+      2.9,
+      13.14,
+      12.46,
+      11.77,
+      12.8
+    ]
+  },
+  {
+    "label": "Magicoder-S-DS-6.7B (6.7B, SIFT)",
+    "data": [
+      2.56,
+      16.21,
+      22.87,
+      23.72,
+      27.13
+    ]
+  },
+  {
+    "label": "Meta-Llama-3-70B-Instruct (70B, RLHF)",
+    "data": [
+      34.13,
+      44.2,
+      59.39,
+      63.82,
+      66.21
+    ]
+  },
+  {
+    "label": "Meta-Llama-3-8B-Instruct (8B, RLHF)",
+    "data": [
+      19.28,
+      29.35,
+      33.11,
+      36.86,
+      34.13
+    ]
+  },
+  {
+    "label": "Mistral-7B-Instruct-v0.1 (7B, SIFT)",
+    "data": [
+      1.54,
+      12.12,
+      13.31,
+      14.16,
+      13.99
+    ]
+  },
+  {
+    "label": "Mistral-7B-Instruct-v0.2 (7B, SIFT)",
+    "data": [
+      5.8,
+      14.68,
+      16.72,
+      18.6,
+      18.43
+    ]
+  },
+  {
+    "label": "Mistral-7B-v0.1 (7B, Base)",
+    "data": [
+      0.17,
+      19.97,
+      21.84,
+      22.7,
+      22.35
+    ]
+  },
+  {
+    "label": "Mixtral-8x7B-Instruct-v0.1 (7B, SIFT)",
+    "data": [
+      7.0,
+      31.23,
+      33.28,
+      38.74,
+      38.57
+    ]
+  },
+  {
+    "label": "OpenCodeInterpreter-CL-70B (70B, SIFT)",
+    "data": [
+      0.85,
+      17.75,
+      21.67,
+      25.6,
+      25.6
+    ]
+  },
+  {
+    "label": "OpenCodeInterpreter-DS-6.7B (6.7B, SIFT)",
+    "data": [
+      0.0,
+      5.8,
+      9.39,
+      10.92,
+      12.29
+    ]
+  },
+  {
+    "label": "OpenMath-CodeLlama-70b-Python (70B, SIFT)",
+    "data": [
+      0.51,
+      4.1,
+      3.24,
+      3.24,
+      3.41
+    ]
+  },
+  {
+    "label": "OpenMath-Mistral-7B-v0.1 (7B, SIFT)",
+    "data": [
+      0.0,
+      13.99,
+      14.68,
+      15.02,
+      15.36
+    ]
+  },
+  {
+    "label": "Qwen1.5-72B-Chat (72B, RLHF)",
+    "data": [
+      17.75,
+      28.67,
+      28.67,
+      30.03,
+      28.84
+    ]
+  },
+  {
+    "label": "Starling-LM-7B-alpha (7B, RLHF)",
+    "data": [
+      6.31,
+      23.21,
+      32.08,
+      38.05,
+      37.54
+    ]
+  },
+  {
+    "label": "WizardMath-7B-V1.1 (7B, RLHF)",
+    "data": [
+      2.56,
+      20.31,
+      23.89,
+      24.91,
+      25.09
+    ]
+  },
+  {
+    "label": "chat-bison-001 (closed-source)",
+    "data": [
+      0.34,
+      15.87,
+      14.16,
+      12.97,
+      14.51
+    ]
+  },
+  {
+    "label": "claude-2 (closed-source)",
+    "data": [
+      26.45,
+      35.49,
+      36.01,
+      39.76,
+      39.93
+    ]
+  },
+  {
+    "label": "claude-instant-1 (closed-source)",
+    "data": [
+      12.12,
+      32.25,
+      39.25,
+      44.37,
+      45.9
+    ]
+  },
+  {
+    "label": "gpt-3.5-turbo-0613 (closed-source)",
+    "data": [
+      2.73,
+      16.89,
+      24.06,
+      31.74,
+      36.18
+    ]
+  },
+  {
+    "label": "deepseek-coder-33b-instruct (33B, SIFT)",
+    "data": [
+      5.46,
+      30.2,
+      32.76,
+      34.98,
+      37.54
+    ]
+  },
+  {
+    "label": "deepseek-llm-67b-chat (67B, SIFT)",
+    "data": [
+      5.12,
+      36.86,
+      47.1,
+      49.32,
+      49.66
+    ]
+  },
+  {
+    "label": "openchat-3.5-1210 (7B, SIFT)",
+    "data": [
+      3.92,
+      27.82,
+      35.49,
+      37.2,
+      37.88
+    ]
+  },
+  {
+    "label": "vicuna-13b-v1.5 (13B, SIFT)",
+    "data": [
+      0.0,
+      2.22,
+      4.44,
+      6.66,
+      8.36
+    ]
+  },
+  {
+    "label": "vicuna-7b-v1.5 (7B, SIFT)",
+    "data": [
+      0.0,
+      6.66,
+      12.29,
+      15.36,
+      12.63
+    ]
+  },
+  {
+    "label": "zephyr-7b-beta (7B, RLHF)",
+    "data": [
+      2.9,
+      12.12,
+      12.63,
+      12.8,
+      15.87
+    ]
+  }
+]

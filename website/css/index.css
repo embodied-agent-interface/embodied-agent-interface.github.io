@@ -13,11 +13,6 @@ body {
     margin-bottom: 5px;
 }
 
-.dnerf {
-  font-variant: small-caps;
-}
-
-
 .teaser .hero-body {
   padding-top: 0;
   padding-bottom: 3rem;
@@ -27,9 +22,6 @@ body {
   font-family: 'Google Sans', sans-serif;
 }
 
-
-.publication-title {
-}
 
 .publication-banner {
   max-height: parent;
@@ -42,9 +34,6 @@ body {
   top: auto;
   transform: none;
   object-fit: fit;
-}
-
-.publication-header .hero-body {
 }
 
 .publication-title {
@@ -67,11 +56,9 @@ body {
     font-weight: bolder;
 }
 
-.publication-authors {
-}
 
 .publication-authors a {
-   color: hsl(204, 86%, 53%) !important;
+   text-decoration: none;
 }
 
 .publication-authors a:hover {
@@ -138,8 +125,6 @@ body {
   border-radius: 5px;
 }
 
-.interpolation-video-column {
-}
 
 .interpolation-panel .slider {
   margin: 0 !important;
@@ -154,4 +139,39 @@ body {
 }
 #interpolation-image-wrapper img {
   border-radius: 5px;
+}
+
+
+.chart-container {
+  height: 50vh;
+  margin: auto;
+  position: relative;
+  max-width: calc(min(60vh, 100%));;
+}
+
+/* Mobile override */
+@media (max-width: 768px) {  /* Change 768px to your mobile breakpoint */
+  .chart-container {
+      height: 90vw;
+      max-width: calc(min(90vw, 100%));;
+  }
+  h1 {
+      font-size: 1.5rem;
+  }
+  h2 {
+      font-size: 1.3rem;
+  }
+  h3 {
+      font-size: 1.1rem;
+  }
+  p,
+  span,
+  li {
+      font-size: 1rem;
+  }
+}
+
+
+.tabulator-header .tabulator-col {
+  text-align:center;
 }
