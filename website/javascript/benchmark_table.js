@@ -111,6 +111,86 @@ document.addEventListener('DOMContentLoaded', function () {
             virtualhome_total_benchmark_data,
             behavior_total_benchmark_data,
         ]) => {
+            var getColumnMinMax = (data, field) => {
+                let values = data.map(item => item[field]).filter(val => val !== "-").map(Number);
+                return { min: Math.min(...values), max: Math.max(...values) };
+            };
+
+            var virtualhome_columns = [
+                {
+                    title: "Model Family",
+                    field: "model",
+                    widthGrow: 1.5,
+                    minWidth: 180
+                },
+                {
+                    title: "Access",
+                    field: "access",
+                    widthGrow: 0.9,
+                    minWidth: 120
+                },
+                {
+                    title: "Release<br>Date",
+                    field: "release",
+                    widthGrow: 0.9,
+                    minWidth: 120
+                },
+                {
+                    title: "Overall<br>Perf.",
+                    field: "overall_performance",
+                    formatter: "progress",
+                    minWidth: 90,
+                    formatterParams: {
+                        min: 0, max: 80,
+                        legend: true,
+                        color: barColorFn,
+                    },
+                },
+                {
+                    title: "Goal<br>Interpretation",
+                    columns: [{
+                        title: "F1",
+                        field: "goal_interpretation_f1",
+                        hozAlign: "center",
+                        formatter: colorFormatter,
+                        minWidth: 90
+                    }]
+                },
+                {
+                    title: "Action Sequencing",
+                    columns: [
+                        { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "Exec.<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                    ]
+                },
+                {
+                    title: "Subgoal Decomposition",
+                    columns: [
+                        { title: "Goal<br>SR", field: "subgoal_decomposition_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "Exec.<br>SR", field: "subgoal_decomposition_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                    ]
+                },
+                {
+                    title: "Transition Modeling",
+                    columns: [
+                        { title: "F1", field: "transition_modeling_f1", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "Planner<br>SR", field: "transition_modeling_planner_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                    ]
+                },
+            ];
+
+            virtualhome_columns.forEach(column => {
+                if (column.columns) {
+                    column.columns.forEach(subColumn => {
+                        let { min, max } = getColumnMinMax(virtualhome_total_benchmark_data, subColumn.field);
+                        subColumn.formatterParams = { min, max };
+                    });
+                } else if (column.field !== "overall_performance") {
+                    let { min, max } = getColumnMinMax(virtualhome_total_benchmark_data, column.field);
+                    column.formatterParams = { min, max };
+                }
+            });
+
             var virtualhome_table = new Tabulator("#virtualhome-benchmark-main-table", {
                 data: virtualhome_total_benchmark_data,
                 layout: "fitColumns",
@@ -122,70 +202,82 @@ document.addEventListener('DOMContentLoaded', function () {
                 columnDefaults: {
                     tooltip: true,
                 },
-                columns: [
-                    {
-                        title: "Model Family",
-                        field: "model",
-                        widthGrow: 1.5,
-                        minWidth: 180
+                columns: virtualhome_columns
+            });
+
+            var behavior_columns = [
+                {
+                    title: "Model Family",
+                    field: "model",
+                    widthGrow: 1.5,
+                    minWidth: 180
+                },
+                {
+                    title: "Access",
+                    field: "access",
+                    widthGrow: 0.9,
+                    minWidth: 120
+                },
+                {
+                    title: "Release<br>Date",
+                    field: "release",
+                    widthGrow: 0.9,
+                    minWidth: 120
+                },
+                {
+                    title: "Overall<br>Perf.",
+                    field: "overall_performance",
+                    formatter: "progress",
+                    minWidth: 90,
+                    formatterParams: {
+                        min: 0, max: 80,
+                        legend: true,
+                        color: barColorFn,
                     },
-                    {
-                        title: "Access",
-                        field: "access",
-                        widthGrow: 0.9,
-                        minWidth: 120
-                    },
-                    {
-                        title: "Release<br>Date",
-                        field: "release",
-                        widthGrow: 0.9,
-                        minWidth: 120
-                    },
-                    {
-                        title: "Overall<br>Performance",
-                        field: "overall_performance",
-                        // hozAlign: "center",
-                        formatter: "progress",
-                        minWidth: 90,
-                        formatterParams: {
-                            min: -50, max: 50,
-                            legend: true,
-                            color: barColorFn,
-                        },
-                    },
-                    {
-                        title: "Goal<br>Interpretation",
-                        columns: [{
-                            title: "F1",
-                            field: "goal_interpretation_f1",
-                            hozAlign: "center",
-                            formatter: colorFormatter,
-                            minWidth: 90
-                        }]
-                    },
-                    {
-                        title: "Action Sequencing",
-                        columns: [
-                            { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                            { title: "Execution<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        ]
-                    },
-                    {
-                        title: "Subgoal Decomposition",
-                        columns: [
-                            { title: "Goal<br>SR", field: "subgoal_decomposition_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                            { title: "Execution<br>SR", field: "subgoal_decomposition_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        ]
-                    },
-                    {
-                        title: "Transition Modeling",
-                        columns: [
-                            { title: "F1", field: "transition_modeling_f1", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                            { title: "Planner<br>SR", field: "transition_modeling_planner_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        ]
-                    },
-                    
-                ]
+                },
+                {
+                    title: "Goal<br>Interpretation",
+                    columns: [{
+                        title: "F1",
+                        field: "goal_interpretation_f1",
+                        hozAlign: "center",
+                        formatter: colorFormatter,
+                        minWidth: 90
+                    }]
+                },
+                {
+                    title: "Action Sequencing",
+                    columns: [
+                        { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "Exec.<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                    ]
+                },
+                {
+                    title: "Subgoal Decomposition",
+                    columns: [
+                        { title: "Goal<br>SR", field: "subgoal_decomposition_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "Exec.<br>SR", field: "subgoal_decomposition_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                    ]
+                },
+                {
+                    title: "Transition Modeling",
+                    columns: [
+                        { title: "F1", field: "transition_modeling_f1", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "Planner<br>SR", field: "transition_modeling_planner_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                    ]
+                },
+            ];
+
+            behavior_columns.forEach(column => {
+                if (column.columns) {
+                    column.columns.forEach(subColumn => {
+                        let { min, max } = getColumnMinMax(behavior_total_benchmark_data, subColumn.field);
+                        subColumn.formatterParams = { min, max };
+                    });
+                } else if (column.field !== "overall_performance") {
+                    let { min, max } = getColumnMinMax(behavior_total_benchmark_data, column.field);
+                    column.formatterParams = { min, max };
+                }
             });
 
             var behavior_table = new Tabulator("#behavior-benchmark-main-table", {
@@ -199,74 +291,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 columnDefaults: {
                     tooltip: true,
                 },
-                columns: [
-                    {
-                        title: "Model Family",
-                        field: "model",
-                        widthGrow: 1.5,
-                        minWidth: 180
-                    },
-                    {
-                        title: "Access",
-                        field: "access",
-                        widthGrow: 0.9,
-                        minWidth: 120
-                    },
-                    {
-                        title: "Release<br>Date",
-                        field: "release",
-                        widthGrow: 0.9,
-                        minWidth: 120
-                    },
-                    {
-                        title: "Overall<br>Performance",
-                        field: "overall_performance",
-                        // hozAlign: "center",
-                        formatter: "progress",
-                        minWidth: 90,
-                        formatterParams: {
-                            min: 0, max: 80,
-                            legend: true,
-                            color: barColorFn,
-                        },
-                    },
-                    {
-                        title: "Goal<br>Interpretation",
-                        columns: [{
-                            title: "F1",
-                            field: "goal_interpretation_f1",
-                            hozAlign: "center",
-                            formatter: colorFormatter,
-                            minWidth: 90
-                        }]
-                    },
-                    {
-                        title: "Action Sequencing",
-                        columns: [
-                            { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                            { title: "Execution<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        ]
-                    },
-                    {
-                        title: "Subgoal Decomposition",
-                        columns: [
-                            { title: "Goal<br>SR", field: "subgoal_decomposition_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                            { title: "Execution<br>SR", field: "subgoal_decomposition_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        ]
-                    },
-                    {
-                        title: "Transition Modeling",
-                        columns: [
-                            { title: "F1", field: "transition_modeling_f1", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                            { title: "Planner<br>SR", field: "transition_modeling_planner_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        ]
-                    },
-                    
-                ]
+                columns: behavior_columns
             });
-
         });
-
-
 })
 
