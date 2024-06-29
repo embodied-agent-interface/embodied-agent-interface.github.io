@@ -33,6 +33,7 @@ var chartFormatter = function (cell, formatterParams, onRendered) {
 };
 
 
+
 var colorFormatter = function (cell, formatterParams) {
     var value = cell.getValue();
 
@@ -68,6 +69,7 @@ var colorFormatter = function (cell, formatterParams) {
 
     return "<span style='display: block; width: 100%; height: 100%; background-color: rgb(" + red + ", " + green + ", " + blue + ");'>" + value + "</span>";
 }
+
 
 
 var barColorFn = function (value, formatterParams) {
@@ -140,6 +142,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         minWidth: 120
                     },
                     {
+                        title: "Overall<br>Performance",
+                        field: "overall_performance",
+                        // hozAlign: "center",
+                        formatter: "progress",
+                        minWidth: 90,
+                        formatterParams: {
+                            min: -50, max: 50,
+                            legend: true,
+                            color: barColorFn,
+                        },
+                    },
+                    {
                         title: "Goal<br>Interpretation",
                         columns: [{
                             title: "F1",
@@ -170,13 +184,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             { title: "Planner<br>SR", field: "transition_modeling_planner_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
                         ]
                     },
-                    {
-                        title: "Overall<br>Performance",
-                        field: "overall_performance",
-                        hozAlign: "center",
-                        formatter: colorFormatter,
-                        minWidth: 90
-                    },
+                    
                 ]
             });
 
@@ -211,6 +219,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         minWidth: 120
                     },
                     {
+                        title: "Overall<br>Performance",
+                        field: "overall_performance",
+                        // hozAlign: "center",
+                        formatter: "progress",
+                        minWidth: 90,
+                        formatterParams: {
+                            min: -50, max: 50,
+                            legend: true,
+                            color: barColorFn,
+                        },
+                    },
+                    {
                         title: "Goal<br>Interpretation",
                         columns: [{
                             title: "F1",
@@ -241,13 +261,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             { title: "Planner<br>SR", field: "transition_modeling_planner_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
                         ]
                     },
-                    {
-                        title: "Overall<br>Performance",
-                        field: "overall_performance",
-                        hozAlign: "center",
-                        formatter: colorFormatter,
-                        minWidth: 90
-                    },
+                    
                 ]
             });
 
