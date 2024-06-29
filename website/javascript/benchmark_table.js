@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         formatter: "progress",
                         minWidth: 90,
                         formatterParams: {
-                            min: -50, max: 50,
+                            min: 0, max: 80,
                             legend: true,
                             color: barColorFn,
                         },
