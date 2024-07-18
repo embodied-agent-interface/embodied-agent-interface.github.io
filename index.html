@@ -41,6 +41,7 @@
     <script src="website/javascript/success_rate_vs_k_vis.js" type="module"></script>
     <script src="website/javascript/feedback_success_rate_vis.js" type="module"></script>
     <script src="website/javascript/feedback_provider_efficacy.js" type="module"></script>
+    <script src="website/javascript/data_table.js" type="module"></script>
 
     <link rel="stylesheet" href="website/css/index.css">
 
@@ -97,6 +98,118 @@
           transform: rotate(180deg);
         }
       </style>
+      <style>
+        .demo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .demo-table-container {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+        }
+        .demo-table-wrapper {
+            min-width: 100%;
+        }
+        .demo-buttons {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+        #prev-btn {
+            left: 0;
+            margin-right: 20px;
+        }
+        #next-btn {
+            right: 0;
+            margin-left: 20px;
+        }
+    </style>
+    <style>
+        .virtualhome-data {
+            max-width: 1200px;
+            width: 80%;
+            margin: 0 auto;
+        }
+        .virtualhome-data .search-container {
+            margin-bottom: 20px;
+        }
+
+        .virtualhome-data .search-container select {
+            margin-right: 10px;
+            padding: 5px;
+            font-size: 16px;
+        }
+
+        .virtualhome-data .task-wrapper {
+            margin-bottom: 20px;
+            font-family: Arial, sans-serif;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .virtualhome-data .field-container {
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .virtualhome-data .field-container.small {
+            height: 80px;
+            grid-column: span 1;
+        }
+
+        .virtualhome-data .field-container.medium {
+            height: 120px;
+            grid-column: span 2;
+        }
+
+        .virtualhome-data .field-container.large {
+            height: 150px;
+            grid-column: span 2;
+        }
+
+        .virtualhome-data .field-container.extra-large {
+            height: 250px;
+            grid-column: span 4;
+        }
+
+        .virtualhome-data .field-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .virtualhome-data .field-content {
+            margin-top: 0;
+            overflow-y: auto;
+            flex-grow: 1;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .virtualhome-data .nav-buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .virtualhome-data .nav-buttons button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .virtualhome-data .nav-buttons button:disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    </style>
 </head>
 
 <body>
@@ -580,6 +693,49 @@
         </div>
     </section>
 
+    <section class="section" id="data_demo">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered">
+                <div class="column is-full-width">
+                    <h2 class="title is-3">Dataset Demonstration</h2>
+                    <div class="demo-container">
+                        <button id="prev-btn" class="button is-primary"><i class="fas fa-chevron-left"></i></button>
+                        <div class="virtualhome-data" id="demo-table-container"></div>
+                        <button id="next-btn" class="button is-primary"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <!-- <div class="demo-buttons">
+                        <button id="prev-btn" class="button is-primary"><i class="fas fa-chevron-left"></i></button>
+                        <button id="next-btn" class="button is-primary"><i class="fas fa-chevron-right"></i></button>
+                    </div> -->
+                    <!-- <div class="demo-table-container" id="demo-table-container"></div> -->
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="behavior-demo-tab" data-bs-toggle="tab"
+                                data-bs-target="#behavior-demo-content" type="button" role="tab"
+                                aria-controls="behavior-demo-tab" aria-selected="true">BEHAVIOR</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="virtualhome-demo-tab" data-bs-toggle="tab"
+                                data-bs-target="#virtualhome-demo-content" type="button" role="tab"
+                                aria-controls="virtualhome-demo-tab" aria-selected="false">VirtualHome</button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content" id="myTab2">
+                    <div class="tab-pane fade show active" id="behavior-demo-content" role="tabpanel"
+                        aria-labelledby="behavior-demo-content">
+                    </div>
+
+                    <div class="tab-pane fade" id="virtualhome-demo-content" role="tabpanel"
+                        aria-labelledby="virtualhome-demo-content">
+                        
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="section" id="embodied_agent_interface_detail">
         <div class="container is-max-desktop">
