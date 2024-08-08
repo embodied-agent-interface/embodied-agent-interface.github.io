@@ -181,14 +181,14 @@
                         <div class="column has-text-centered">
                             <div class="publication-links">
                                 <!-- PDF Link. -->
-                                 <span class="link-block">
+                                 <!-- <span class="link-block">
                                     <a class="btn btn-outline-dark"
                                      role="button">
                                     &nbsp;
                                         <i class="fas fa-file-pdf"></i>
                                         <span>&nbsp;&nbsp;Paper (Coming Soon)</span>
                                     </a> &nbsp;&nbsp;
-                                 </span>
+                                 </span> -->
                                 <!-- <span class="link-block">
                                     <a href="https://arxiv.org" class="btn btn-outline-dark"
                                         role="button">
@@ -301,357 +301,10 @@
                         <div id="virtualhome-benchmark-main-table"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
+                <br>
 
-    <section class="section" id="abstract">
-        <div class="container is-max-desktop">
-            <!-- Abstract. -->
-            <div class="columns is-centered has-text-centered">
-                <div class="column is-four-fifths">
-                    <h2 class="title is-2">Abstract</h2>
-                    <div class="content has-text-justified">
-                        <p>
-                            <b>Problem:</b> We aim to evaluate Large Language Models (LLMs) for embodied decision making. While a significant body of work has been leveraging LLMs for decision making in embodied environments, we still lack a systematic understanding of their performances, because they are usually applied in different domains for different purposes, and built based on different inputs and outputs. Furthermore, existing evaluations tend to rely solely on a final success rate, making it difficult to pinpoint what ability is missing in LLMs and where the problem lies, which in turn, blocks embodied agents from leveraging LLMs effectively and selectively.
-                        </p>
-                        <p>
-                            <b>Method:</b> To address these limitations, we propose a generalized interface (<b>Embodied Agent Interface</b>) that supports the formalization of various types of tasks and input-output specifications of LLM-based modules. Specifically, it allows us to unify <b>1)</b> a broad set of embodied decision making tasks involving both state and temporally extended goals, <b>2)</b> four commonly-used LLM-based modules for decision making: goal interpretation, subgoal decomposition, action sequencing, and transition modeling, and <b>3)</b> a collection of fine-grained metrics which break down evaluation into various types of errors, such as hallucination errors, affordance errors, various types of planning errors, etc.
-                        </p>
-                        <p>
-                            <b>Conclusion:</b> Overall, our benchmark offers a comprehensive and systematic assessment of LLMs' performance for different subtasks, pinpointing the strengths and weaknesses in LLM-powered embodied AI systems, and providing insights for effective and selective use of LLMs in embodied decision making.
-                        </p>
-                    </div>
-                    <figure>
-                        <img src="website/img/teaser.png" alt="Embodied agent interface overview." class="EAgent_overview_image"/>
-                        <figcaption  style="font-style: italic;">
-                            <b>Figure 1:</b> <b>Embodied Agent Interface</b> unifies a broad set of tasks involving both state and temporally extended goals and four LLM-based modules for decision making.
-                        </figcaption>
-                    </figure>
-                </div>
-            </div>
-            <!--/ Abstract. -->
-        </div>
-    </section>
-
-
-    <section class="section" id="embodied_agent_interface_detail">
-        <div class="container is-max-desktop">
-            <div class="columns is-centered">
-                <div class="column is-full-width">
-                    <h2 class="title is-2" style="text-align: center;">Embodied Agent Interface</h2>
-                    <div class="content has-text-justified">
-                        <p>
-                            In our Embodied Agent Interface, we propose a set of ability modules to evaluate LLMs for embodied decision making. The four ability modules are: Goal Interpretation, Subgoal Decomposition, Action Sequencing, and Transition Modeling. We provide a detailed description of each module below.
-                        </p>
-                        <h3 class="title is-3">Ability Module 1: Goal Interpretation</h3>
-                        <p>
-                            Goal Interpretation aims to ground the natural language instruction to the environment representations of objects, states, relations, and actions. For example, the task instruction "Use the rag to clean the trays, the bowl, and the refrigerator. When you are done, leave the rag next to the sink..." can be grounded to specific objects with IDs, such as fridge (ID: 97), tray (ID: 1), bowl (ID: 1), rag (ID: 0), and sink (ID: 82). Note that a simple natural language description can be grounded into a set of multiple goal conditions (object state and relation). 
-                        </p>
-                        
-                        <h3 class="title is-3">Ability Module 2: Subgoal Decomposition</h3>
-                        <p>
-                            Subgoal Decomposition generates a sequence of states, where each state can be a set of objects and their states. Here, we highlight the important states, such as the transitions between a sequence of next_to(rag.0, sink.82), toggled_on(sink.82), soaked(rag.0), toggled_off(sink.82), open(fridge.97), not_stained(fridge.97). To achieve these state transitions, we can use a high-level planner such as BFS to search for the Action Sequences that achieve these state transitions. We obtain the following action sequence: RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82), TOGGLE_ON(sink.82), SOAK(rag.0), TOGGLE_OFF(sink.82), OPEN(fridge.97), CLEAN(fridge.97). Note that multiple actions may be required to achieve a single one-step state transition. For example, to perform the state transition next_to(rag.0, sink.82) → toggled_on(sink.82), we need two actions RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82). See <a href="#EAgent_taxtonomy_example">Figure 2</a> for the input and output formulation.
-                        </p>
-
-                        <figure id="EAgent_taxtonomy_example">
-                            <img src="website/img/taxonomy-ability.png" alt="Embodied agent interface taxonomy example." class="EAgent_taxtonomy_image" style="width: 75%;"/>
-                            <figcaption>
-                                <b>Figure 2:</b> The input and output formulation of four ability modules for <b>Embodied Agent Interface</b>.
-                            </figcaption>
-                        </figure>
-                        
-                        <h3 class="title is-3">Ability Module 3: Action Sequencing</h3>
-                        <p>
-                            Action Sequences are essential to achieve the state transitions identified in Subgoal Decomposition. For example, a successful execution of the action sequence RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82), TOGGLE_ON(sink.82), SOAK(rag.0), TOGGLE_OFF(sink.82), OPEN(fridge.97), CLEAN(fridge.97) is shown in <a href="#EAgent_excution_example">Figure 3</a>.
-                        </p>
-                        
-                        <h3 class="title is-3">Ability Module 4: Transition Modeling</h3>
-                        <p>
-                            Transition Modeling serves as the low-level controller to guide the simulator in performing state transitions from preconditions to post-effects. For example, in cleaning task, the input is the operator name soak, and the preconditions are three states: holding (?obj1), next_to (?sink ?agent), and toggled_on (?sink). The post effect after executing SOAK is soaked (?obj1).
-                        </p>
-                        
-                        
-                        
-                        <figure id="EAgent_excution_example">
-                            <img src="website/img/excution_example.png" alt="Example of successful execution in Embodied Agent Interface." class="EAgent_excution_image" style="width: 75%;"/>
-                            <figcaption>
-                                <b>Figure 3:</b> An example of successful execution in <b>Embodied Agent Interface</b>.
-                            </figcaption>
-                        </figure>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section" id="evaluation">
-        <div class="container is-max-desktop">
-            <div class="columns is-full-width">
-                <div class="column is-centered">
-
-                    <h2 class="title is-2" style="text-align: center;">Evaluation</h2>
-                    <h3 class="title is-3">Dataset Description</h3>
-                    <!-- <h4 class="title is-5">Annotation</h4> -->
-                    <div class="content has-text-justified">
-                        <p>Focusing on complex long-horizon tasks, we select <strong>VirtualHome (V)</strong> and <strong>BEHAVIOR (B)</strong> as our evaluation simulators based on their task length and scene complexity. <a href="#dataset_statistics">Table 1</a> shows our annotations. Apart from the goal and trajectory annotations, we introduce the Goal Action annotation to reflect necessary actions that do not have post effects, such as the goal action <em>touch</em> in the task “<em>pet the cat</em>”. In the subset of VirtualHome tasks we work on, \(80.7\%\) task categories include instructions with action steps longer than \(10\), and \(33\%\) of the instructions have step lengths of more than \(10\).</p>
-
-                        <p>
-                            We select <strong>BEHAVIOR</strong> as another simulator for our evaluation due to its task complexity. BEHAVIOR BDDL goals may contain quantifiers, such as (forpairs (?jar ?apple) (inside ?apple ?jar)), which need to be translated into grounded goals with only atomic propositions, e.g., and ((inside apple_1 jar_1) (inside apple_2 jar_2)). There can be different grounded goals that satisfy the same BDDL goal, such as ((inside apple_2 jar_1) (inside apple_1 jar_2)). We call them goal options. In general, one BDDL goal corresponds to a number of goal options. The average number of grounded goals for each task is \(6.7\), and there are \(4,164.4\) goal options for each task on average.
-                        </p>
-                        <div class="collapsible-section">
-                            <button class="button is-fullwidth toggle-section" aria-controls="data_statistics_table">
-                                <span>View data annotation statistics for VirtualHome and BEHAVIOR</span>
-                                <span class="icon is-small">
-                                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                            </button>
-                            <div id="data_statistics_table" class="collapse-content">
-                                <table class="table is-striped is-hoverable" id="dataset_statistics">
-                                    <caption style="caption-side: top; text-align: center; color: black; font-style: italic;">
-                                        <b>Table 1:</b> Simulator dataset statistics. New annotations collected in this paper are highlighted in color.
-                                    </caption>
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th style="text-align: center;">VirtualHome</th>
-                                            <th style="text-align: center;">BEHAVIOR</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>#task name</td>
-                                            <td style="text-align: center;">26</td>
-                                            <td style="text-align: center;">100</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#task instruction</td>
-                                            <td style="text-align: center;">338</td>
-                                            <td style="text-align: center; background-color: #F5E6E9;">100</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#goal</td>
-                                            <td style="text-align: center; background-color: #F5E6E9;">801</td>
-                                            <td style="text-align: center;">673</td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;&nbsp;&nbsp;- #state</td>
-                                            <td style="text-align: center; background-color: #F5E6E9;">340</td>
-                                            <td style="text-align: center;">153</td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;&nbsp;&nbsp;- #relation</td>
-                                            <td style="text-align: center; background-color: #F5E6E9;">299</td>
-                                            <td style="text-align: center;">520</td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;&nbsp;&nbsp;- #action</td>
-                                            <td style="text-align: center; background-color: #F5E6E9;">162</td>
-                                            <td style="text-align: center;">-</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#trajectory</td>
-                                            <td style="text-align: center;">338</td>
-                                            <td style="text-align: center; background-color: #E2E6E1;">100</td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;&nbsp;&nbsp;- #step</td>
-                                            <td style="text-align: center;">2960</td>
-                                            <td style="text-align: center; background-color: #E2E6E1;">1460</td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;&nbsp;&nbsp;- avg. step</td>
-                                            <td style="text-align: center;">8.76</td>
-                                            <td style="text-align: center; background-color: #E2E6E1;">14.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>#transition model</td>
-                                            <td style="text-align: center; background-color: #CDD4DF;">33</td>
-                                            <td style="text-align: center; background-color: #CDD4DF;">30</td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;&nbsp;&nbsp;- #precondition</td>
-                                            <td style="text-align: center; background-color: #CDD4DF;">99</td>
-                                            <td style="text-align: center; background-color: #CDD4DF;">84</td>
-                                        </tr>
-                                        <tr>
-                                            <td>&nbsp;&nbsp;&nbsp;- #effect</td>
-                                            <td style="text-align: center; background-color: #CDD4DF;">57</td>
-                                            <td style="text-align: center; background-color: #CDD4DF;">51</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        
-                        <br>
-                        <!-- <h4 class="title is-5">Dataset Format</h3> -->
-                        <p>Each instance in the dataset represents a task goal. Specifically, each task contains the following data:</p>
-                        <ul>
-                            <li>Natural language task name</li>
-                            <li>Natural language task instruction</li>
-                            <li>Symbolic goal definition (including its LTL form)</li>
-                            <li>Symbolic action trajectory</li>
-                            <li>The transition models involved in the task</li>
-                        </ul>
-                        <p>For tasks in the BEHAVIOR environment, the dataset also includes accompanying VR human demonstration videos that showcase the execution of the ground truth action trajectories.</p>
-
-                        <figure>
-                            <img src="website/img/virtualhome_data_format.png" alt="VirtualHome dataset structure example" style="width: 60%;">
-                            <figcaption>
-                                <b>Figure 4:</b> VirtualHome dataset structure example.
-                            </figcaption>
-                        </figure>
-                        
-                        <figure>
-                            <img src="website/img/behavior_data.png" alt="BEHAVIOR dataset structure example" style="width: 60%;">
-                            <figcaption>
-                                <b>Figure 5:</b> BEHAVIOR dataset structure example.
-                            </figcaption>
-                        </figure>
-
-                        <p>Please find our JSON data format in this link: <a href="https://github.com/embodied-agent-eval/embodied-agent-eval/tree/main/dataset">Dataset JSON Format</a></p>
-                    </div>
-                    <h3 class="title is-3">LLMs Implementations</h3>
-                    <div class="content has-text-justified">
-                        <p>
-                            We integrated our evaluation pipeline into the <a href="https://crfm.stanford.edu/helm/">HELM</a> code base for easy and reproducible LLM inference. Users can set up their environment using <a href="https://github.com/embodied-agent-eval/embodied-agent-eval/tree/main">here</a>. We standardized decoding parameters across all models, using temperature zero for \(\operatorname*{arg\,max}\) sampling. Evaluating all models on our benchmark required \(180\) runs. Detailed model information is provided in the table below.
-                        </p>
-                        <div class="collapsible-section">
-                            <button class="button is-fullwidth toggle-section" aria-controls="model_table">
-                                <span>View full LLM implementations</span>
-                                <span class="icon is-small">
-                                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                            </button>
-                            <div id="model_table" class="collapse-content">
-                                <table class="table is-striped is-hoverable" id="model_info">
-                                    <caption style="caption-side: top; text-align: center; color: black; font-style: italic;">
-                                        <b>Table 2 :</b> Model Cards for All Evaluated Large Language Models
-                                    </caption>
-                                    <thead>
-                                        <tr>
-                                            <th>Model Name</th>
-                                            <th>Creator</th>
-                                            <th>Complete Model ID</th>
-                                            <th>Release</th>
-                                            <th>Hosting</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Claude-3 Haiku</td>
-                                            <td>Anthropic</td>
-                                            <td>claude-3-haiku-20240307</td>
-                                            <td>03/07/24</td>
-                                            <td>Anthropic</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Claude-3 Sonnet</td>
-                                            <td>Anthropic</td>
-                                            <td>claude-3-sonnet-20240229</td>
-                                            <td>02/29/24</td>
-                                            <td>Anthropic</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Claude-3 Opus</td>
-                                            <td>Anthropic</td>
-                                            <td>claude-3-opus-20240229</td>
-                                            <td>02/29/24</td>
-                                            <td>Anthropic</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cohere Command R</td>
-                                            <td>Cohere</td>
-                                            <td>command-r</td>
-                                            <td>03/11/24</td>
-                                            <td>Cohere</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Cohere Command R+</td>
-                                            <td>Cohere</td>
-                                            <td>command-r-plus</td>
-                                            <td>04/04/24</td>
-                                            <td>Cohere</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gemini 1.0 Pro</td>
-                                            <td>Google</td>
-                                            <td>gemini-pro</td>
-                                            <td>12/13/23</td>
-                                            <td>GCP Vertex</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gemini 1.5 Flash</td>
-                                            <td>Google</td>
-                                            <td>gemini-1.5-flash-preview-0514</td>
-                                            <td>05/14/24</td>
-                                            <td>GCP Vertex</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Gemini 1.5 Pro</td>
-                                            <td>Google</td>
-                                            <td>gemini-1.5-pro-preview-0409</td>
-                                            <td>04/09/24</td>
-                                            <td>GCP Vertex</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GPT-3.5-turbo</td>
-                                            <td>OpenAI</td>
-                                            <td>gpt-3.5-turbo-0125</td>
-                                            <td>01/25/24</td>
-                                            <td>OpenAI</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GPT-4-turbo</td>
-                                            <td>OpenAI</td>
-                                            <td>gpt-4-turbo-2024-04-09</td>
-                                            <td>04/09/24</td>
-                                            <td>OpenAI</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GPT-4o</td>
-                                            <td>OpenAI</td>
-                                            <td>gpt-4o-2024-05-13</td>
-                                            <td>05/13/24</td>
-                                            <td>OpenAI</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Llama3 8B Instruct</td>
-                                            <td>Meta</td>
-                                            <td>meta-llama-3-8b-instruct</td>
-                                            <td>04/18/24</td>
-                                            <td>TogetherAI</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Llama3 70B Instruct</td>
-                                            <td>Meta</td>
-                                            <td>meta-llama-3-70b-instruct</td>
-                                            <td>04/18/24</td>
-                                            <td>TogetherAI</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mistral Large</td>
-                                            <td>MistralAI</td>
-                                            <td>mistral-large-2402</td>
-                                            <td>02/26/24</td>
-                                            <td>MistralAI</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Mixtral 8x22B MoE</td>
-                                            <td>MistralAI</td>
-                                            <td>mixtral-8x22b-instruct-v0.1</td>
-                                            <td>04/17/24</td>
-                                            <td>TogetherAI</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <h3 class="title is-3">Empirical Findings</h3>
+                <h3 class="title is-3">Empirical Findings</h3>
                     <div class="content has-text-justified">
                         <ol>
                             <li><strong>Goal Interpretation:</strong>
@@ -1137,6 +790,7 @@
                                     </div>
 
                                 </div>
+                                <br>
                             </li>
                             <li><strong>Action Sequencing:</strong>
                                 <ul>
@@ -1859,11 +1513,9 @@
                                         </table>
                                     </div>
                                 </div>
+                                <br>
                             </li>
-                            
-                            
-                            
-                            
+
                             <li><strong>Subgoal Decomposition:</strong>
                                 <ul>
                                     <li>Not easier than action sequencing in abstract action spaces.</li>
@@ -2247,6 +1899,7 @@
                                         </table>
                                     </div>
                                 </div>
+                                <br>
                             </li>
 
                             
@@ -2966,6 +2619,7 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <br>
                                 </div>
                             </li>
                             
@@ -3038,16 +2692,370 @@
                                         </table>
                                     </div>
                                 </div>
-                            </li>
-
-                            <br>
-                            
+                            </li>                           
                         </ol>
                     </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section" id="abstract">
+        <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-2">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            <b>Problem:</b> We aim to evaluate Large Language Models (LLMs) for embodied decision making. While a significant body of work has been leveraging LLMs for decision making in embodied environments, we still lack a systematic understanding of their performances, because they are usually applied in different domains for different purposes, and built based on different inputs and outputs. Furthermore, existing evaluations tend to rely solely on a final success rate, making it difficult to pinpoint what ability is missing in LLMs and where the problem lies, which in turn, blocks embodied agents from leveraging LLMs effectively and selectively.
+                        </p>
+                        <p>
+                            <b>Method:</b> To address these limitations, we propose a generalized interface (<b>Embodied Agent Interface</b>) that supports the formalization of various types of tasks and input-output specifications of LLM-based modules. Specifically, it allows us to unify <b>1)</b> a broad set of embodied decision making tasks involving both state and temporally extended goals, <b>2)</b> four commonly-used LLM-based modules for decision making: goal interpretation, subgoal decomposition, action sequencing, and transition modeling, and <b>3)</b> a collection of fine-grained metrics which break down evaluation into various types of errors, such as hallucination errors, affordance errors, various types of planning errors, etc.
+                        </p>
+                        <p>
+                            <b>Conclusion:</b> Overall, our benchmark offers a comprehensive and systematic assessment of LLMs' performance for different subtasks, pinpointing the strengths and weaknesses in LLM-powered embodied AI systems, and providing insights for effective and selective use of LLMs in embodied decision making.
+                        </p>
+                    </div>
+                    <figure>
+                        <img src="website/img/teaser.png" alt="Embodied agent interface overview." class="EAgent_overview_image"/>
+                        <figcaption  style="font-style: italic;">
+                            <b>Figure 1:</b> <b>Embodied Agent Interface</b> unifies a broad set of tasks involving both state and temporally extended goals and four LLM-based modules for decision making.
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <!--/ Abstract. -->
+        </div>
+    </section>
+
+
+    <section class="section" id="embodied_agent_interface_detail">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+                <!-- <div class="column is-full-width"> -->
+                    <h2 class="title is-2" style="text-align: center;">Embodied Agent Interface</h2>
+                    <br>
+                    <div class="content has-text-justified">
+                        <p>
+                            In our Embodied Agent Interface, we propose a set of ability modules to evaluate LLMs for embodied decision making. The four ability modules are: Goal Interpretation, Subgoal Decomposition, Action Sequencing, and Transition Modeling. We provide a detailed description of each module below.
+                        </p>
+                        <h3 class="title is-4">Ability Module 1: Goal Interpretation</h3>
+                        <p>
+                            Goal Interpretation aims to ground the natural language instruction to the environment representations of objects, states, relations, and actions. For example, the task instruction "Use the rag to clean the trays, the bowl, and the refrigerator. When you are done, leave the rag next to the sink..." can be grounded to specific objects with IDs, such as fridge (ID: 97), tray (ID: 1), bowl (ID: 1), rag (ID: 0), and sink (ID: 82). Note that a simple natural language description can be grounded into a set of multiple goal conditions (object state and relation). 
+                        </p>
+                        
+                        <h3 class="title is-4">Ability Module 2: Subgoal Decomposition</h3>
+                        <p>
+                            Subgoal Decomposition generates a sequence of states, where each state can be a set of objects and their states. Here, we highlight the important states, such as the transitions between a sequence of next_to(rag.0, sink.82), toggled_on(sink.82), soaked(rag.0), toggled_off(sink.82), open(fridge.97), not_stained(fridge.97). To achieve these state transitions, we can use a high-level planner such as BFS to search for the Action Sequences that achieve these state transitions. We obtain the following action sequence: RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82), TOGGLE_ON(sink.82), SOAK(rag.0), TOGGLE_OFF(sink.82), OPEN(fridge.97), CLEAN(fridge.97). Note that multiple actions may be required to achieve a single one-step state transition. For example, to perform the state transition next_to(rag.0, sink.82) → toggled_on(sink.82), we need two actions RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82). See <a href="#EAgent_taxtonomy_example">Figure 2</a> for the input and output formulation.
+                        </p>
+
+                        <figure id="EAgent_taxtonomy_example">
+                            <img src="website/img/taxonomy-ability.png" alt="Embodied agent interface taxonomy example." class="EAgent_taxtonomy_image" style="width: 75%;"/>
+                            <figcaption>
+                                <b>Figure 2:</b> The input and output formulation of four ability modules for <b>Embodied Agent Interface</b>.
+                            </figcaption>
+                        </figure>
+                        
+                        <h3 class="title is-4">Ability Module 3: Action Sequencing</h3>
+                        <p>
+                            Action Sequences are essential to achieve the state transitions identified in Subgoal Decomposition. For example, a successful execution of the action sequence RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82), TOGGLE_ON(sink.82), SOAK(rag.0), TOGGLE_OFF(sink.82), OPEN(fridge.97), CLEAN(fridge.97) is shown in <a href="#EAgent_excution_example">Figure 3</a>.
+                        </p>
+                        
+                        <h3 class="title is-4">Ability Module 4: Transition Modeling</h3>
+                        <p>
+                            Transition Modeling serves as the low-level controller to guide the simulator in performing state transitions from preconditions to post-effects. For example, in cleaning task, the input is the operator name soak, and the preconditions are three states: holding (?obj1), next_to (?sink ?agent), and toggled_on (?sink). The post effect after executing SOAK is soaked (?obj1).
+                        </p>
+                        
+                        
+                        
+                        <figure id="EAgent_excution_example">
+                            <img src="website/img/excution_example.png" alt="Example of successful execution in Embodied Agent Interface." class="EAgent_excution_image" style="width: 75%;"/>
+                            <figcaption>
+                                <b>Figure 3:</b> An example of successful execution in <b>Embodied Agent Interface</b>.
+                            </figcaption>
+                        </figure>
+                    </div>
+                <!-- </div> -->
+                <div class="column is-centered">
+
+                    <h2 class="title is-2" style="text-align: center;">Evaluation Setup</h2>
+
+                    <br>
+                    <!-- <h4 class="title is-5">Annotation</h4> -->
+                    <div class="content has-text-justified">
+                        <p>
+                            We evaluate the performance of LLMs for embodied decision making using the Embodied Agent Interface. Below is a detailed description of the evaluation setup.
+                        </p>
+                        <h3 class="title is-4">Dataset Description</h3>
+                        <p>Focusing on complex long-horizon tasks, we select <strong>VirtualHome (V)</strong> and <strong>BEHAVIOR (B)</strong> as our evaluation simulators based on their task length and scene complexity. <a href="#dataset_statistics">Table 1</a> shows our annotations. Apart from the goal and trajectory annotations, we introduce the Goal Action annotation to reflect necessary actions that do not have post effects, such as the goal action <em>touch</em> in the task “<em>pet the cat</em>”. In the subset of VirtualHome tasks we work on, \(80.7\%\) task categories include instructions with action steps longer than \(10\), and \(33\%\) of the instructions have step lengths of more than \(10\).</p>
+
+                        <p>
+                            We select <strong>BEHAVIOR</strong> as another simulator for our evaluation due to its task complexity. BEHAVIOR BDDL goals may contain quantifiers, such as (forpairs (?jar ?apple) (inside ?apple ?jar)), which need to be translated into grounded goals with only atomic propositions, e.g., and ((inside apple_1 jar_1) (inside apple_2 jar_2)). There can be different grounded goals that satisfy the same BDDL goal, such as ((inside apple_2 jar_1) (inside apple_1 jar_2)). We call them goal options. In general, one BDDL goal corresponds to a number of goal options. The average number of grounded goals for each task is \(6.7\), and there are \(4,164.4\) goal options for each task on average.
+                        </p>
+                        <div class="collapsible-section">
+                            <button class="button is-fullwidth toggle-section" aria-controls="data_statistics_table">
+                                <span>View data annotation statistics for VirtualHome and BEHAVIOR</span>
+                                <span class="icon is-small">
+                                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                            <div id="data_statistics_table" class="collapse-content">
+                                <table class="table is-striped is-hoverable" id="dataset_statistics">
+                                    <caption style="caption-side: top; text-align: center; color: black; font-style: italic;">
+                                        <b>Table 1:</b> Simulator dataset statistics. New annotations collected in this paper are highlighted in color.
+                                    </caption>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th style="text-align: center;">VirtualHome</th>
+                                            <th style="text-align: center;">BEHAVIOR</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>#task name</td>
+                                            <td style="text-align: center;">26</td>
+                                            <td style="text-align: center;">100</td>
+                                        </tr>
+                                        <tr>
+                                            <td>#task instruction</td>
+                                            <td style="text-align: center;">338</td>
+                                            <td style="text-align: center; background-color: #F5E6E9;">100</td>
+                                        </tr>
+                                        <tr>
+                                            <td>#goal</td>
+                                            <td style="text-align: center; background-color: #F5E6E9;">801</td>
+                                            <td style="text-align: center;">673</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;&nbsp;&nbsp;- #state</td>
+                                            <td style="text-align: center; background-color: #F5E6E9;">340</td>
+                                            <td style="text-align: center;">153</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;&nbsp;&nbsp;- #relation</td>
+                                            <td style="text-align: center; background-color: #F5E6E9;">299</td>
+                                            <td style="text-align: center;">520</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;&nbsp;&nbsp;- #action</td>
+                                            <td style="text-align: center; background-color: #F5E6E9;">162</td>
+                                            <td style="text-align: center;">-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>#trajectory</td>
+                                            <td style="text-align: center;">338</td>
+                                            <td style="text-align: center; background-color: #E2E6E1;">100</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;&nbsp;&nbsp;- #step</td>
+                                            <td style="text-align: center;">2960</td>
+                                            <td style="text-align: center; background-color: #E2E6E1;">1460</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;&nbsp;&nbsp;- avg. step</td>
+                                            <td style="text-align: center;">8.76</td>
+                                            <td style="text-align: center; background-color: #E2E6E1;">14.6</td>
+                                        </tr>
+                                        <tr>
+                                            <td>#transition model</td>
+                                            <td style="text-align: center; background-color: #CDD4DF;">33</td>
+                                            <td style="text-align: center; background-color: #CDD4DF;">30</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;&nbsp;&nbsp;- #precondition</td>
+                                            <td style="text-align: center; background-color: #CDD4DF;">99</td>
+                                            <td style="text-align: center; background-color: #CDD4DF;">84</td>
+                                        </tr>
+                                        <tr>
+                                            <td>&nbsp;&nbsp;&nbsp;- #effect</td>
+                                            <td style="text-align: center; background-color: #CDD4DF;">57</td>
+                                            <td style="text-align: center; background-color: #CDD4DF;">51</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                        <br>
+                        <!-- <h4 class="title is-5">Dataset Format</h3> -->
+                        <p>Each instance in the dataset represents a task goal. Specifically, each task contains the following data:</p>
+                        <ul>
+                            <li>Natural language task name</li>
+                            <li>Natural language task instruction</li>
+                            <li>Symbolic goal definition (including its LTL form)</li>
+                            <li>Symbolic action trajectory</li>
+                            <li>The transition models involved in the task</li>
+                        </ul>
+                        <p>For tasks in the BEHAVIOR environment, the dataset also includes accompanying VR human demonstration videos that showcase the execution of the ground truth action trajectories.</p>
+
+                        <figure>
+                            <img src="website/img/virtualhome_data_format.png" alt="VirtualHome dataset structure example" style="width: 60%;">
+                            <figcaption>
+                                <b>Figure 4:</b> VirtualHome dataset structure example.
+                            </figcaption>
+                        </figure>
+                        
+                        <figure>
+                            <img src="website/img/behavior_data.png" alt="BEHAVIOR dataset structure example" style="width: 60%;">
+                            <figcaption>
+                                <b>Figure 5:</b> BEHAVIOR dataset structure example.
+                            </figcaption>
+                        </figure>
+
+                        <p>Please find our JSON data format in this link: <a href="https://github.com/embodied-agent-eval/embodied-agent-eval/tree/main/dataset">Dataset JSON Format</a></p>
+                    </div>
+                    <h3 class="title is-4">LLMs Implementations</h3>
+                    <div class="content has-text-justified">
+                        <p>
+                            We integrated our evaluation pipeline into the <a href="https://crfm.stanford.edu/helm/">HELM</a> code base for easy and reproducible LLM inference. Users can set up their environment using <a href="https://github.com/embodied-agent-eval/embodied-agent-eval/tree/main">here</a>. We standardized decoding parameters across all models, using temperature zero for \(\operatorname*{arg\,max}\) sampling. Evaluating all models on our benchmark required \(180\) runs. Detailed model information is provided in the table below.
+                        </p>
+                        <div class="collapsible-section">
+                            <button class="button is-fullwidth toggle-section" aria-controls="model_table">
+                                <span>View full LLM implementations</span>
+                                <span class="icon is-small">
+                                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                </span>
+                            </button>
+                            <div id="model_table" class="collapse-content">
+                                <table class="table is-striped is-hoverable" id="model_info">
+                                    <caption style="caption-side: top; text-align: center; color: black; font-style: italic;">
+                                        <b>Table 2 :</b> Model Cards for All Evaluated Large Language Models
+                                    </caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Model Name</th>
+                                            <th>Creator</th>
+                                            <th>Complete Model ID</th>
+                                            <th>Release</th>
+                                            <th>Hosting</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Claude-3 Haiku</td>
+                                            <td>Anthropic</td>
+                                            <td>claude-3-haiku-20240307</td>
+                                            <td>03/07/24</td>
+                                            <td>Anthropic</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Claude-3 Sonnet</td>
+                                            <td>Anthropic</td>
+                                            <td>claude-3-sonnet-20240229</td>
+                                            <td>02/29/24</td>
+                                            <td>Anthropic</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Claude-3 Opus</td>
+                                            <td>Anthropic</td>
+                                            <td>claude-3-opus-20240229</td>
+                                            <td>02/29/24</td>
+                                            <td>Anthropic</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cohere Command R</td>
+                                            <td>Cohere</td>
+                                            <td>command-r</td>
+                                            <td>03/11/24</td>
+                                            <td>Cohere</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Cohere Command R+</td>
+                                            <td>Cohere</td>
+                                            <td>command-r-plus</td>
+                                            <td>04/04/24</td>
+                                            <td>Cohere</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gemini 1.0 Pro</td>
+                                            <td>Google</td>
+                                            <td>gemini-pro</td>
+                                            <td>12/13/23</td>
+                                            <td>GCP Vertex</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gemini 1.5 Flash</td>
+                                            <td>Google</td>
+                                            <td>gemini-1.5-flash-preview-0514</td>
+                                            <td>05/14/24</td>
+                                            <td>GCP Vertex</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Gemini 1.5 Pro</td>
+                                            <td>Google</td>
+                                            <td>gemini-1.5-pro-preview-0409</td>
+                                            <td>04/09/24</td>
+                                            <td>GCP Vertex</td>
+                                        </tr>
+                                        <tr>
+                                            <td>GPT-3.5-turbo</td>
+                                            <td>OpenAI</td>
+                                            <td>gpt-3.5-turbo-0125</td>
+                                            <td>01/25/24</td>
+                                            <td>OpenAI</td>
+                                        </tr>
+                                        <tr>
+                                            <td>GPT-4-turbo</td>
+                                            <td>OpenAI</td>
+                                            <td>gpt-4-turbo-2024-04-09</td>
+                                            <td>04/09/24</td>
+                                            <td>OpenAI</td>
+                                        </tr>
+                                        <tr>
+                                            <td>GPT-4o</td>
+                                            <td>OpenAI</td>
+                                            <td>gpt-4o-2024-05-13</td>
+                                            <td>05/13/24</td>
+                                            <td>OpenAI</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Llama3 8B Instruct</td>
+                                            <td>Meta</td>
+                                            <td>meta-llama-3-8b-instruct</td>
+                                            <td>04/18/24</td>
+                                            <td>TogetherAI</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Llama3 70B Instruct</td>
+                                            <td>Meta</td>
+                                            <td>meta-llama-3-70b-instruct</td>
+                                            <td>04/18/24</td>
+                                            <td>TogetherAI</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mistral Large</td>
+                                            <td>MistralAI</td>
+                                            <td>mistral-large-2402</td>
+                                            <td>02/26/24</td>
+                                            <td>MistralAI</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mixtral 8x22B MoE</td>
+                                            <td>MistralAI</td>
+                                            <td>mixtral-8x22b-instruct-v0.1</td>
+                                            <td>04/17/24</td>
+                                            <td>TogetherAI</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- <section class="section" id="evaluation">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+                
+            </div>
+        </div>
+    </section> -->
 
 
     <!-- <section class="section" id="BibTeX">
