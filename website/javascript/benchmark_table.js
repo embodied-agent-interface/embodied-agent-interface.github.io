@@ -159,8 +159,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 {
                     title: "Action Sequencing",
                     columns: [
-                        { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        { title: "Exec.<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90, responsive: 2},
+                        { title: "Exec.<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90, responsive: 2 },
                     ]
                 },
                 {
@@ -195,6 +195,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 data: virtualhome_total_benchmark_data,
                 layout: "fitColumns",
                 responsiveLayout: "collapse",
+                responsiveLayoutCollapseStartOpen: false,
                 movableColumns: false,
                 initialSort: [
                     { column: "overall_performance", dir: "desc" },
@@ -284,6 +285,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 data: behavior_total_benchmark_data,
                 layout: "fitColumns",
                 responsiveLayout: "collapse",
+                responsiveLayoutCollapseStartOpen: false,
                 movableColumns: false,
                 initialSort: [
                     { column: "overall_performance", dir: "desc" },
