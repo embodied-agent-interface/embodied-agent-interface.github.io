@@ -32,9 +32,7 @@ var chartFormatter = function (cell, formatterParams, onRendered) {
     return content;
 };
 
-
-
-var colorFormatter = function (cell, formatterParams) {
+var colorFormatterGoalInt = function (cell, formatterParams) {
     var value = cell.getValue();
 
     // Check for the specific string "-"
@@ -47,7 +45,115 @@ var colorFormatter = function (cell, formatterParams) {
         min: 0.0,
         max: 100.0,
         startColor: { r: 255, g: 255, b: 255 },
-        endColor: { r: 107, g: 142, b: 35 }
+        endColor: { r: 238, g: 211, b: 217 }
+    };
+
+    // Override defaults with provided formatterParams values
+    var min = (formatterParams && formatterParams.min) || defaults.min;
+    var max = (formatterParams && formatterParams.max) || defaults.max;
+    var startColor = (formatterParams && formatterParams.startColor) || defaults.startColor;
+    var endColor = (formatterParams && formatterParams.endColor) || defaults.endColor;
+
+    // Normalize the value between 0 and 1
+    var normalizedValue = (value - min) / (max - min);
+
+    // Compute the color gradient 
+    var red = Math.floor(startColor.r + (endColor.r - startColor.r) * normalizedValue);
+    var green = Math.floor(startColor.g + (endColor.g - startColor.g) * normalizedValue);
+    var blue = Math.floor(startColor.b + (endColor.b - startColor.b) * normalizedValue);
+
+    // make sure the value is rounded to 1 decimal place
+    value = parseFloat(value).toFixed(1)
+
+    return "<span style='display: block; width: 100%; height: 100%; background-color: rgb(" + red + ", " + green + ", " + blue + ");'>" + value + "</span>";
+}
+
+var colorFormatterSubgoal = function (cell, formatterParams) {
+    var value = cell.getValue();
+
+    // Check for the specific string "-"
+    if (value === "-") {
+        return value;
+    }
+
+    // Default values
+    var defaults = {
+        min: 0.0,
+        max: 100.0,
+        startColor: { r: 255, g: 255, b: 255 },
+        endColor: { r: 245, g: 232, b: 221 }
+    };
+
+    // Override defaults with provided formatterParams values
+    var min = (formatterParams && formatterParams.min) || defaults.min;
+    var max = (formatterParams && formatterParams.max) || defaults.max;
+    var startColor = (formatterParams && formatterParams.startColor) || defaults.startColor;
+    var endColor = (formatterParams && formatterParams.endColor) || defaults.endColor;
+
+    // Normalize the value between 0 and 1
+    var normalizedValue = (value - min) / (max - min);
+
+    // Compute the color gradient 
+    var red = Math.floor(startColor.r + (endColor.r - startColor.r) * normalizedValue);
+    var green = Math.floor(startColor.g + (endColor.g - startColor.g) * normalizedValue);
+    var blue = Math.floor(startColor.b + (endColor.b - startColor.b) * normalizedValue);
+
+    // make sure the value is rounded to 1 decimal place
+    value = parseFloat(value).toFixed(1)
+
+    return "<span style='display: block; width: 100%; height: 100%; background-color: rgb(" + red + ", " + green + ", " + blue + ");'>" + value + "</span>";
+}
+
+var colorFormatterActionSeq = function (cell, formatterParams) {
+    var value = cell.getValue();
+
+    // Check for the specific string "-"
+    if (value === "-") {
+        return value;
+    }
+
+    // Default values
+    var defaults = {
+        min: 0.0,
+        max: 100.0,
+        startColor: { r: 255, g: 255, b: 255 },
+        endColor: { r: 204, g: 211, b: 202 }
+    };
+
+    // Override defaults with provided formatterParams values
+    var min = (formatterParams && formatterParams.min) || defaults.min;
+    var max = (formatterParams && formatterParams.max) || defaults.max;
+    var startColor = (formatterParams && formatterParams.startColor) || defaults.startColor;
+    var endColor = (formatterParams && formatterParams.endColor) || defaults.endColor;
+
+    // Normalize the value between 0 and 1
+    var normalizedValue = (value - min) / (max - min);
+
+    // Compute the color gradient 
+    var red = Math.floor(startColor.r + (endColor.r - startColor.r) * normalizedValue);
+    var green = Math.floor(startColor.g + (endColor.g - startColor.g) * normalizedValue);
+    var blue = Math.floor(startColor.b + (endColor.b - startColor.b) * normalizedValue);
+
+    // make sure the value is rounded to 1 decimal place
+    value = parseFloat(value).toFixed(1)
+
+    return "<span style='display: block; width: 100%; height: 100%; background-color: rgb(" + red + ", " + green + ", " + blue + ");'>" + value + "</span>";
+}
+
+var colorFormatterTrans = function (cell, formatterParams) {
+    var value = cell.getValue();
+
+    // Check for the specific string "-"
+    if (value === "-") {
+        return value;
+    }
+
+    // Default values
+    var defaults = {
+        min: 0.0,
+        max: 100.0,
+        startColor: { r: 255, g: 255, b: 255 },
+        endColor: { r: 181, g: 192, b: 208 }
     };
 
     // Override defaults with provided formatterParams values
@@ -75,8 +181,8 @@ var colorFormatter = function (cell, formatterParams) {
 var barColorFn = function (value, formatterParams) {
     var defaults = {
         range : [-50, 50],
-        low: { r: 255, g: 100, b: 150 },
-        high: { r: 150, g: 255, b: 150 }
+        low: { r: 255, g: 255, b: 255 },
+        high: { r: 206, g: 212, b: 218 }
     };
 
     // Override defaults with provided formatterParams values
@@ -152,29 +258,29 @@ document.addEventListener('DOMContentLoaded', function () {
                         title: "F1",
                         field: "goal_interpretation_f1",
                         hozAlign: "center",
-                        formatter: colorFormatter,
+                        formatter: colorFormatterGoalInt,
                         minWidth: 90
                     }]
                 },
                 {
                     title: "Action Sequencing",
                     columns: [
-                        { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90, responsive: 2},
-                        { title: "Exec.<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90, responsive: 2 },
+                        { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatterActionSeq, minWidth: 90, responsive: 2},
+                        { title: "Exec.<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatterActionSeq, minWidth: 90, responsive: 2 },
                     ]
                 },
                 {
                     title: "Subgoal Decomposition",
                     columns: [
-                        { title: "Goal<br>SR", field: "subgoal_decomposition_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        { title: "Exec.<br>SR", field: "subgoal_decomposition_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "Goal<br>SR", field: "subgoal_decomposition_goal_sr", hozAlign: "center", formatter: colorFormatterSubgoal, minWidth: 90 },
+                        { title: "Exec.<br>SR", field: "subgoal_decomposition_execution_sr", hozAlign: "center", formatter: colorFormatterSubgoal, minWidth: 90 },
                     ]
                 },
                 {
                     title: "Transition Modeling",
                     columns: [
-                        { title: "F1", field: "transition_modeling_f1", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        { title: "Planner<br>SR", field: "transition_modeling_planner_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "F1", field: "transition_modeling_f1", hozAlign: "center", formatter: colorFormatterTrans, minWidth: 90 },
+                        { title: "Planner<br>SR", field: "transition_modeling_planner_sr", hozAlign: "center", formatter: colorFormatterTrans, minWidth: 90 },
                     ]
                 },
             ];
@@ -242,29 +348,29 @@ document.addEventListener('DOMContentLoaded', function () {
                         title: "F1",
                         field: "goal_interpretation_f1",
                         hozAlign: "center",
-                        formatter: colorFormatter,
+                        formatter: colorFormatterGoalInt,
                         minWidth: 90
                     }]
                 },
                 {
                     title: "Action Sequencing",
                     columns: [
-                        { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        { title: "Exec.<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatterActionSeq, minWidth: 90 },
+                        { title: "Exec.<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatterActionSeq, minWidth: 90 },
                     ]
                 },
                 {
                     title: "Subgoal Decomposition",
                     columns: [
-                        { title: "Goal<br>SR", field: "subgoal_decomposition_goal_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        { title: "Exec.<br>SR", field: "subgoal_decomposition_execution_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "Goal<br>SR", field: "subgoal_decomposition_goal_sr", hozAlign: "center", formatter: colorFormatterSubgoal, minWidth: 90 },
+                        { title: "Exec.<br>SR", field: "subgoal_decomposition_execution_sr", hozAlign: "center", formatter: colorFormatterSubgoal, minWidth: 90 },
                     ]
                 },
                 {
                     title: "Transition Modeling",
                     columns: [
-                        { title: "F1", field: "transition_modeling_f1", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
-                        { title: "Planner<br>SR", field: "transition_modeling_planner_sr", hozAlign: "center", formatter: colorFormatter, minWidth: 90 },
+                        { title: "F1", field: "transition_modeling_f1", hozAlign: "center", formatter: colorFormatterTrans, minWidth: 90 },
+                        { title: "Planner<br>SR", field: "transition_modeling_planner_sr", hozAlign: "center", formatter: colorFormatterTrans, minWidth: 90 },
                     ]
                 },
             ];
