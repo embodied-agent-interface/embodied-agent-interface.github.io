@@ -304,6 +304,16 @@
 
                 <br>
 
+                <h3 class="title is-3">Dataset Viewer</h3>
+                <iframe
+                src="https://huggingface.co/datasets/Inevitablevalor/EmbodiedAgentInterface/embed/viewer/default/behavior"
+                frameborder="0"
+                width="100%"
+                height="560px"
+                ></iframe>
+                <br>
+                <br>
+
                 <h3 class="title is-3">Empirical Findings</h3>
                     <div class="content has-text-justified">
                         <ol>
@@ -2729,6 +2739,15 @@
         </div>
     </section>
 
+    <!-- <section class="section" id="dataset_viewer">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+                <h2 class="title is-2" style="text-align: center;">Dataset Viewer</h2>
+                <br>
+                
+            </div>
+        </div>
+    </section> -->
 
     <section class="section" id="embodied_agent_interface_detail">
         <div class="container is-max-desktop">
@@ -2889,6 +2908,23 @@
                             <li>The transition models involved in the task</li>
                         </ul>
                         <p>For tasks in the BEHAVIOR environment, the dataset also includes accompanying VR human demonstration videos that showcase the execution of the ground truth action trajectories.</p>
+                        
+
+                        
+                        <div id="results-carousel" class="carousel results-carousel">
+                            <div class="box m-5">
+                              <div class="content has-text-centered">
+                                <img src="website/img/virtualhome_data_format.png" alt="algebraic reasoning" width="80%"/>
+                                <p> Examples of our newly annotated datasets: IQTest, FunctionQA, and PaperQA.</p>
+                              </div>
+                            </div>
+                            <div class="box m-5">
+                              <div class="content has-text-centered">
+                                <img src="website/img/behavior_data.png" alt="arithmetic reasoning" width="50%"/>
+                                <p> Summary of the 31 different source datasets in abc.
+                              </div>
+                            </div>
+                          </div>
 
                         <figure>
                             <img src="website/img/virtualhome_data_format.png" alt="VirtualHome dataset structure example" style="width: 60%;">
@@ -3045,8 +3081,16 @@
                     </div>
                     <br>
                 </div>
+                <!-- <div class="columns is-centered m-6">
+                    <div class="column is-max-desktop has-text-centered">
+                      <h2 class="title is-4" id="visualization">Visualization</h2>
+                      <iframe src="visualizer/explore.html" style="width: 100%;min-height: 100vh; border-radius: 20px;"></iframe>
+                    </div>
+                </div> -->
+                
             </div>
         </div>
+
     </section>
 
     <!-- <section class="section" id="evaluation">
