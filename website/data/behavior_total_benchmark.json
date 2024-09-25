@@ -7,7 +7,7 @@
     "goal_interpretation_f1": 52.5,
     "action_sequencing_goal_sr": 26.0,
     "action_sequencing_execution_sr": 32.0,
-    "subgoal_decomposition_goal_sr": 29.0,
+    "subgoal_decomposition_goal_sr": 30.0,
     "subgoal_decomposition_execution_sr": 35.0,
     "transition_modeling_f1": 89.5,
     "transition_modeling_planner_sr": 82.0
@@ -20,7 +20,7 @@
     "goal_interpretation_f1": 69.4,
     "action_sequencing_goal_sr": 44.0,
     "action_sequencing_execution_sr": 57.0,
-    "subgoal_decomposition_goal_sr": 38.0,
+    "subgoal_decomposition_goal_sr": 39.0,
     "subgoal_decomposition_execution_sr": 43.0,
     "transition_modeling_f1": 92.1,
     "transition_modeling_planner_sr": 78.0
@@ -33,10 +33,23 @@
     "goal_interpretation_f1": 77.0,
     "action_sequencing_goal_sr": 51.0,
     "action_sequencing_execution_sr": 59.0,
-    "subgoal_decomposition_goal_sr": 39.0,
+    "subgoal_decomposition_goal_sr": 41.0,
     "subgoal_decomposition_execution_sr": 47.0,
     "transition_modeling_f1": 92.9,
     "transition_modeling_planner_sr": 97.0
+  },
+  {
+    "model": "Claude-3.5 Sonnet",
+    "release": "06/20/24",
+    "access": "Proprietary",
+    "overall_performance": 0,
+    "goal_interpretation_f1": 0,
+    "action_sequencing_goal_sr": 0,
+    "action_sequencing_execution_sr": 0,
+    "subgoal_decomposition_goal_sr": 39.0,
+    "subgoal_decomposition_execution_sr": 44.0,
+    "transition_modeling_f1": 0,
+    "transition_modeling_planner_sr": 0
   },
   {
     "model": "Cohere Command R",
@@ -59,7 +72,7 @@
     "goal_interpretation_f1": 51.2,
     "action_sequencing_goal_sr": 27.0,
     "action_sequencing_execution_sr": 35.0,
-    "subgoal_decomposition_goal_sr": 24.0,
+    "subgoal_decomposition_goal_sr": 25.0,
     "subgoal_decomposition_execution_sr": 37.0,
     "transition_modeling_f1": 72.1,
     "transition_modeling_planner_sr": 34.0
@@ -72,7 +85,7 @@
     "goal_interpretation_f1": 60.0,
     "action_sequencing_goal_sr": 27.0,
     "action_sequencing_execution_sr": 32.0,
-    "subgoal_decomposition_goal_sr": 23.0,
+    "subgoal_decomposition_goal_sr": 24.0,
     "subgoal_decomposition_execution_sr": 33.0,
     "transition_modeling_f1": 85.0,
     "transition_modeling_planner_sr": 38.0
@@ -85,7 +98,7 @@
     "goal_interpretation_f1": 74.8,
     "action_sequencing_goal_sr": 40.0,
     "action_sequencing_execution_sr": 52.0,
-    "subgoal_decomposition_goal_sr": 34.0,
+    "subgoal_decomposition_goal_sr": 35.0,
     "subgoal_decomposition_execution_sr": 42.0,
     "transition_modeling_f1": 86.7,
     "transition_modeling_planner_sr": 75.0
@@ -98,7 +111,7 @@
     "goal_interpretation_f1": 79.6,
     "action_sequencing_goal_sr": 42.0,
     "action_sequencing_execution_sr": 54.0,
-    "subgoal_decomposition_goal_sr": 31.0,
+    "subgoal_decomposition_goal_sr": 32.0,
     "subgoal_decomposition_execution_sr": 37.0,
     "transition_modeling_f1": 88.6,
     "transition_modeling_planner_sr": 67.0
@@ -124,7 +137,7 @@
     "goal_interpretation_f1": 77.2,
     "action_sequencing_goal_sr": 38.0,
     "action_sequencing_execution_sr": 45.0,
-    "subgoal_decomposition_goal_sr": 37.0,
+    "subgoal_decomposition_goal_sr": 38.0,
     "subgoal_decomposition_execution_sr": 47.0,
     "transition_modeling_f1": 77.2,
     "transition_modeling_planner_sr": 84.0
@@ -137,7 +150,7 @@
     "goal_interpretation_f1": 79.2,
     "action_sequencing_goal_sr": 47.0,
     "action_sequencing_execution_sr": 53.0,
-    "subgoal_decomposition_goal_sr": 48.0,
+    "subgoal_decomposition_goal_sr": 49.0,
     "subgoal_decomposition_execution_sr": 55.0,
     "transition_modeling_f1": 93.4,
     "transition_modeling_planner_sr": 90.0
@@ -150,7 +163,7 @@
     "goal_interpretation_f1": 28.3,
     "action_sequencing_goal_sr": 10.0,
     "action_sequencing_execution_sr": 16.0,
-    "subgoal_decomposition_goal_sr": 21.0,
+    "subgoal_decomposition_goal_sr": 22.0,
     "subgoal_decomposition_execution_sr": 29.0,
     "transition_modeling_f1": 66.4,
     "transition_modeling_planner_sr": 47.0
@@ -163,7 +176,7 @@
     "goal_interpretation_f1": 70.9,
     "action_sequencing_goal_sr": 34.0,
     "action_sequencing_execution_sr": 42.0,
-    "subgoal_decomposition_goal_sr": 20.0,
+    "subgoal_decomposition_goal_sr": 21.0,
     "subgoal_decomposition_execution_sr": 30.0,
     "transition_modeling_f1": 80.0,
     "transition_modeling_planner_sr": 12.0
@@ -176,7 +189,7 @@
     "goal_interpretation_f1": 74.3,
     "action_sequencing_goal_sr": 33.0,
     "action_sequencing_execution_sr": 50.0,
-    "subgoal_decomposition_goal_sr": 30.0,
+    "subgoal_decomposition_goal_sr": 31.0,
     "subgoal_decomposition_execution_sr": 38.0,
     "transition_modeling_f1": 80.3,
     "transition_modeling_planner_sr": 32.0
@@ -189,9 +202,35 @@
     "goal_interpretation_f1": 54.7,
     "action_sequencing_goal_sr": 30.0,
     "action_sequencing_execution_sr": 40.0,
-    "subgoal_decomposition_goal_sr": 27.0,
+    "subgoal_decomposition_goal_sr": 28.0,
     "subgoal_decomposition_execution_sr": 33.0,
     "transition_modeling_f1": 88.2,
     "transition_modeling_planner_sr": 52.0
+  },
+  {
+    "model": "o1-mini",
+    "release": "09/12/24",
+    "access": "Proprietary",
+    "overall_performance": 0,
+    "goal_interpretation_f1": 0,
+    "action_sequencing_goal_sr": 0,
+    "action_sequencing_execution_sr": 0,
+    "subgoal_decomposition_goal_sr": 31.0,
+    "subgoal_decomposition_execution_sr": 39.0,
+    "transition_modeling_f1": 0,
+    "transition_modeling_planner_sr": 0
+  },
+  {
+    "model": "o1-preview",
+    "release": "09/12/24",
+    "access": "Proprietary",
+    "overall_performance": 0,
+    "goal_interpretation_f1": 0,
+    "action_sequencing_goal_sr": 0,
+    "action_sequencing_execution_sr": 0,
+    "subgoal_decomposition_goal_sr": 57.0,
+    "subgoal_decomposition_execution_sr": 62.0,
+    "transition_modeling_f1": 0,
+    "transition_modeling_planner_sr": 0
   }
 ]

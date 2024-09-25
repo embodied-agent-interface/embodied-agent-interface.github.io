@@ -39,6 +39,19 @@
     "transition_modeling_planner_sr": 61.8
   },
   {
+    "model": "Claude-3.5 Sonnet",
+    "release": "06/20/24",
+    "access": "Proprietary",
+    "overall_performance": 0,
+    "goal_interpretation_f1": 0,
+    "action_sequencing_goal_sr": 0,
+    "action_sequencing_execution_sr": 0,
+    "subgoal_decomposition_goal_sr": 89.1,
+    "subgoal_decomposition_execution_sr": 92.0,
+    "transition_modeling_f1": 0,
+    "transition_modeling_planner_sr": 0
+  },
+  {
     "model": "Cohere Command R",
     "release": "03/11/24",
     "access": "Open-Weight",
@@ -193,5 +206,31 @@
     "subgoal_decomposition_execution_sr": 90.2,
     "transition_modeling_f1": 42.0,
     "transition_modeling_planner_sr": 37.5
+  },
+  {
+    "model": "o1-mini",
+    "release": "09/12/24",
+    "access": "Proprietary",
+    "overall_performance": 0,
+    "goal_interpretation_f1": 0,
+    "action_sequencing_goal_sr": 0,
+    "action_sequencing_execution_sr": 0,
+    "subgoal_decomposition_goal_sr": 79.3,
+    "subgoal_decomposition_execution_sr": 84.6,
+    "transition_modeling_f1": 0,
+    "transition_modeling_planner_sr": 0
+  },
+  {
+    "model": "o1-preview",
+    "release": "09/12/24",
+    "access": "Proprietary",
+    "overall_performance": 0,
+    "goal_interpretation_f1": 0,
+    "action_sequencing_goal_sr": 0,
+    "action_sequencing_execution_sr": 0,
+    "subgoal_decomposition_goal_sr": 89.4,
+    "subgoal_decomposition_execution_sr": 93.2,
+    "transition_modeling_f1": 0,
+    "transition_modeling_planner_sr": 0
   }
 ]
