@@ -265,14 +265,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 {
                     title: "Action Sequencing",
                     columns: [
-                        { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatterActionSeq, minWidth: 90, responsive: 2},
+                        { title: "Task<br>SR", field: "action_sequencing_task_sr", hozAlign: "center", formatter: colorFormatterActionSeq, minWidth: 90, responsive: 2},
                         { title: "Exec.<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatterActionSeq, minWidth: 90, responsive: 2 },
                     ]
                 },
                 {
                     title: "Subgoal Decomposition",
                     columns: [
-                        { title: "Goal<br>SR", field: "subgoal_decomposition_goal_sr", hozAlign: "center", formatter: colorFormatterSubgoal, minWidth: 90 },
+                        { title: "Task<br>SR", field: "subgoal_decomposition_task_sr", hozAlign: "center", formatter: colorFormatterSubgoal, minWidth: 90 },
                         { title: "Exec.<br>SR", field: "subgoal_decomposition_execution_sr", hozAlign: "center", formatter: colorFormatterSubgoal, minWidth: 90 },
                     ]
                 },
@@ -355,14 +355,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 {
                     title: "Action Sequencing",
                     columns: [
-                        { title: "Goal<br>SR", field: "action_sequencing_goal_sr", hozAlign: "center", formatter: colorFormatterActionSeq, minWidth: 90 },
+                        { title: "Task<br>SR", field: "action_sequencing_task_sr", hozAlign: "center", formatter: colorFormatterActionSeq, minWidth: 90 },
                         { title: "Exec.<br>SR", field: "action_sequencing_execution_sr", hozAlign: "center", formatter: colorFormatterActionSeq, minWidth: 90 },
                     ]
                 },
                 {
                     title: "Subgoal Decomposition",
                     columns: [
-                        { title: "Goal<br>SR", field: "subgoal_decomposition_goal_sr", hozAlign: "center", formatter: colorFormatterSubgoal, minWidth: 90 },
+                        { title: "Task<br>SR", field: "subgoal_decomposition_task_sr", hozAlign: "center", formatter: colorFormatterSubgoal, minWidth: 90 },
                         { title: "Exec.<br>SR", field: "subgoal_decomposition_execution_sr", hozAlign: "center", formatter: colorFormatterSubgoal, minWidth: 90 },
                     ]
                 },
