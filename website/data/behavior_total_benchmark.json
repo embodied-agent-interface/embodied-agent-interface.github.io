@@ -211,7 +211,7 @@
     "model": "o1-mini",
     "release": "09/12/24",
     "access": "Proprietary",
-    "overall_performance": ,
+    "overall_performance": 0,
     "goal_interpretation_f1": 76.4,
     "action_sequencing_goal_sr": 0,
     "action_sequencing_execution_sr": 0,
