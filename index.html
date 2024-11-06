@@ -268,10 +268,11 @@
     <section class="hero teaser">
       <div class="container is-max-desktop">
         <div class="hero-body">
-          <video id="teaser" autoplay muted loop playsinline controls width="100%">
-            <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/data/embodied-agent-interface.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+            <video id="teaser" autoplay muted loop playsinline controls width="100%">
+                <!-- <source src="./website/videos/eai-video-v2.mov" type="video/quicktime"> -->
+                <source src="./website/videos/eai-video-v2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
         </div>
       </div>
     </section>
@@ -3918,11 +3919,23 @@
                             In our Embodied Agent Interface, we propose a set of ability modules to evaluate LLMs for embodied decision making. The four ability modules are: Goal Interpretation, Subgoal Decomposition, Action Sequencing, and Transition Modeling. We provide a detailed description of each module below.
                         </p>
                         <h3 class="title is-4">Ability Module 1: Goal Interpretation</h3>
+                        <video id="goal-interpretation-video" muted loop playsinline controls width="100%">
+                            <source src="website/videos/eai-goal.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <br>
+                        <br>
                         <p>
                             Goal Interpretation aims to ground the natural language instruction to the environment representations of objects, states, relations, and actions. For example, the task instruction "Use the rag to clean the trays, the bowl, and the refrigerator. When you are done, leave the rag next to the sink..." can be grounded to specific objects with IDs, such as fridge (ID: 97), tray (ID: 1), bowl (ID: 1), rag (ID: 0), and sink (ID: 82). Note that a simple natural language description can be grounded into a set of multiple goal conditions (object state and relation). 
                         </p>
                         
                         <h3 class="title is-4">Ability Module 2: Subgoal Decomposition</h3>
+                        <video id="subgoal-video" muted loop playsinline controls width="100%">
+                            <source src="website/videos/eai-subgoal.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <br>
+                        <br>
                         <p>
                             Subgoal Decomposition generates a sequence of states, where each state can be a set of objects and their states. Here, we highlight the important states, such as the transitions between a sequence of next_to(rag.0, sink.82), toggled_on(sink.82), soaked(rag.0), toggled_off(sink.82), open(fridge.97), not_stained(fridge.97). To achieve these state transitions, we can use a high-level planner such as BFS to search for the Action Sequences that achieve these state transitions. We obtain the following action sequence: RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82), TOGGLE_ON(sink.82), SOAK(rag.0), TOGGLE_OFF(sink.82), OPEN(fridge.97), CLEAN(fridge.97). Note that multiple actions may be required to achieve a single one-step state transition. For example, to perform the state transition next_to(rag.0, sink.82) → toggled_on(sink.82), we need two actions RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82). See <a href="#EAgent_taxtonomy_example">Figure 2</a> for the input and output formulation.
                         </p>
@@ -3935,11 +3948,23 @@
                         </figure>
                         
                         <h3 class="title is-4">Ability Module 3: Action Sequencing</h3>
+                        <video id="action-sequencing-video" muted loop playsinline controls width="100%">
+                            <source src="website/videos/eai-action.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <br>
+                        <br>
                         <p>
                             Action Sequences are essential to achieve the state transitions identified in Subgoal Decomposition. For example, a successful execution of the action sequence RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82), TOGGLE_ON(sink.82), SOAK(rag.0), TOGGLE_OFF(sink.82), OPEN(fridge.97), CLEAN(fridge.97) is shown in <a href="#EAgent_excution_example">Figure 3</a>.
                         </p>
                         
                         <h3 class="title is-4">Ability Module 4: Transition Modeling</h3>
+                        <video id="transition-modeling-video" muted loop playsinline controls width="100%">
+                            <source src="website/videos/eai-transition.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <br>
+                        <br>
                         <p>
                             Transition Modeling serves as the low-level controller to guide the simulator in performing state transitions from preconditions to post-effects. For example, in cleaning task, the input is the operator name soak, and the preconditions are three states: holding (?obj1), next_to (?sink ?agent), and toggled_on (?sink). The post effect after executing SOAK is soaked (?obj1).
                         </p>
