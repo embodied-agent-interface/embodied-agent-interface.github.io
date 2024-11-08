@@ -279,10 +279,138 @@
         </div>
       </div>
     </section>
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column">
+                    <h3 class="title is-5">Goal Interpretation</h3>
+                    <video autoplay muted loop playsinline controls width="100%">
+                        <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-1-goal.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="column">
+                    <h3 class="title is-5">Subgoal Decomposition</h3>
+                    <video autoplay muted loop playsinline controls width="100%">
+                        <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-2-subgoal.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="column">
+                    <h3 class="title is-5">Action Sequencing</h3>
+                    <video autoplay muted loop playsinline controls width="100%">
+                        <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-3-action.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="column">
+                    <h3 class="title is-5">Transition Modeling</h3>
+                    <video autoplay muted loop playsinline controls width="100%">
+                        <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-4-transition.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <div class="columns is-centered has-text-centered">
+                <div class="column">
+                    <p>Please refer to the full demo video at <a href="https://embodied-agent-interface.github.io/eai.mp4">this link</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="abstract">
+        <div class="container is-max-desktop">
+            <!-- Abstract. -->
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-2">Abstract</h2>
+                    <div class="content has-text-justified">
+                        <p>
+                            <b>Problem:</b> We aim to evaluate Large Language Models (LLMs) for embodied decision making. While a significant body of work has been leveraging LLMs for decision making in embodied environments, we still lack a systematic understanding of their performances, because they are usually applied in different domains for different purposes, and built based on different inputs and outputs. Furthermore, existing evaluations tend to rely solely on a final success rate, making it difficult to pinpoint what ability is missing in LLMs and where the problem lies, which in turn, blocks embodied agents from leveraging LLMs effectively and selectively.
+                        </p>
+                        <p>
+                            <b>Method:</b> To address these limitations, we propose a generalized interface (<b>Embodied Agent Interface</b>) that supports the formalization of various types of tasks and input-output specifications of LLM-based modules. Specifically, it allows us to unify <b>1)</b> a broad set of embodied decision making tasks involving both state and temporally extended goals, <b>2)</b> four commonly-used LLM-based modules for decision making: goal interpretation, subgoal decomposition, action sequencing, and transition modeling, and <b>3)</b> a collection of fine-grained metrics which break down evaluation into various types of errors, such as hallucination errors, affordance errors, various types of planning errors, etc.
+                        </p>
+                        <p>
+                            <b>Conclusion:</b> Overall, our benchmark offers a comprehensive and systematic assessment of LLMs' performance for different subtasks, pinpointing the strengths and weaknesses in LLM-powered embodied AI systems, and providing insights for effective and selective use of LLMs in embodied decision making.
+                        </p>
+                    </div>
+                    <figure>
+                        <img src="website/img/teaser.png" alt="Embodied agent interface overview." class="EAgent_overview_image"/>
+                        <figcaption  style="font-style: italic;">
+                            <b>Figure 1:</b> <b>Embodied Agent Interface</b> unifies a broad set of tasks involving both state and temporally extended goals and four LLM-based modules for decision making.
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+            <!--/ Abstract. -->
+        </div>
+    </section>
         
 
     <section class="hero teaser">
         <div class="container is-max-desktop">
+            <div class="column is-centered">
+                <h2 class="title is-2" style="text-align: center;">Embodied Agent Interface</h2>
+                <br>
+                <div class="content has-text-justified">
+                    <p>
+                        In our Embodied Agent Interface, we propose a set of ability modules to evaluate LLMs for embodied decision making. The four ability modules are: Goal Interpretation, Subgoal Decomposition, Action Sequencing, and Transition Modeling. We provide a detailed description of each module below.
+                    </p>
+                    <h3 class="title is-4">Ability Module 1: Goal Interpretation</h3>
+                    <!-- <video id="goal-interpretation-video" muted loop playsinline controls width="100%">
+                        <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-1-goal.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video> -->
+                    <p>
+                        Goal Interpretation aims to ground the natural language instruction to the environment representations of objects, states, relations, and actions. For example, the task instruction "Use the rag to clean the trays, the bowl, and the refrigerator. When you are done, leave the rag next to the sink..." can be grounded to specific objects with IDs, such as fridge (ID: 97), tray (ID: 1), bowl (ID: 1), rag (ID: 0), and sink (ID: 82). Note that a simple natural language description can be grounded into a set of multiple goal conditions (object state and relation). 
+                    </p>
+                    
+                    <h3 class="title is-4">Ability Module 2: Subgoal Decomposition</h3>
+                    <!-- <video id="subgoal-video" muted loop playsinline controls width="100%">
+                        <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-2-subgoal.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video> -->
+                    <p>
+                        Subgoal Decomposition generates a sequence of states, where each state can be a set of objects and their states. Here, we highlight the important states, such as the transitions between a sequence of next_to(rag.0, sink.82), toggled_on(sink.82), soaked(rag.0), toggled_off(sink.82), open(fridge.97), not_stained(fridge.97). To achieve these state transitions, we can use a high-level planner such as BFS to search for the Action Sequences that achieve these state transitions. We obtain the following action sequence: RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82), TOGGLE_ON(sink.82), SOAK(rag.0), TOGGLE_OFF(sink.82), OPEN(fridge.97), CLEAN(fridge.97). Note that multiple actions may be required to achieve a single one-step state transition. For example, to perform the state transition next_to(rag.0, sink.82) → toggled_on(sink.82), we need two actions RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82). See <a href="#EAgent_taxtonomy_example">Figure 2</a> for the input and output formulation.
+                    </p>
+
+                    <figure id="EAgent_taxtonomy_example">
+                        <img src="website/img/taxonomy-ability.png" alt="Embodied agent interface taxonomy example." class="EAgent_taxtonomy_image" style="width: 75%;"/>
+                        <figcaption>
+                            <b>Figure 2:</b> The input and output formulation of four ability modules for <b>Embodied Agent Interface</b>.
+                        </figcaption>
+                    </figure>
+                    
+                    <h3 class="title is-4">Ability Module 3: Action Sequencing</h3>
+                    <!-- <video id="action-sequencing-video" muted loop playsinline controls width="100%">
+                        <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-3-action.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video> -->
+                    <p>
+                        Action Sequences are essential to achieve the state transitions identified in Subgoal Decomposition. For example, a successful execution of the action sequence RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82), TOGGLE_ON(sink.82), SOAK(rag.0), TOGGLE_OFF(sink.82), OPEN(fridge.97), CLEAN(fridge.97) is shown in <a href="#EAgent_excution_example">Figure 3</a>.
+                    </p>
+                    
+                    <h3 class="title is-4">Ability Module 4: Transition Modeling</h3>
+                    <!-- <video id="transition-modeling-video" muted loop playsinline controls width="100%">
+                        <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-4-transition.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video> -->
+                    <p>
+                        Transition Modeling serves as the low-level controller to guide the simulator in performing state transitions from preconditions to post-effects. For example, in cleaning task, the input is the operator name soak, and the preconditions are three states: holding (?obj1), next_to (?sink ?agent), and toggled_on (?sink). The post effect after executing SOAK is soaked (?obj1).
+                    </p>
+                    
+                    
+                    
+                    <figure id="EAgent_excution_example">
+                        <img src="website/img/excution_example.png" alt="Example of successful execution in Embodied Agent Interface." class="EAgent_excution_image" style="width: 75%;"/>
+                        <figcaption>
+                            <b>Figure 3:</b> An example of successful execution in <b>Embodied Agent Interface</b>.
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
             <div class="hero-body">
                 <h2 class="subtitle">
                     <b>Embodied Agent Interface</b> aims to tackle the following challenges in evaluating LLMs for building embodied decision-making agents: (1) Standardization of goal specifications. (2) Standardization of modules and interfaces. (3) Broad coverage of evaluation and fine-grained metrics.
@@ -3872,34 +4000,8 @@
     </section>
 
 
-    <section class="section" id="abstract">
-        <div class="container is-max-desktop">
-            <!-- Abstract. -->
-            <div class="columns is-centered has-text-centered">
-                <div class="column is-four-fifths">
-                    <h2 class="title is-2">Abstract</h2>
-                    <div class="content has-text-justified">
-                        <p>
-                            <b>Problem:</b> We aim to evaluate Large Language Models (LLMs) for embodied decision making. While a significant body of work has been leveraging LLMs for decision making in embodied environments, we still lack a systematic understanding of their performances, because they are usually applied in different domains for different purposes, and built based on different inputs and outputs. Furthermore, existing evaluations tend to rely solely on a final success rate, making it difficult to pinpoint what ability is missing in LLMs and where the problem lies, which in turn, blocks embodied agents from leveraging LLMs effectively and selectively.
-                        </p>
-                        <p>
-                            <b>Method:</b> To address these limitations, we propose a generalized interface (<b>Embodied Agent Interface</b>) that supports the formalization of various types of tasks and input-output specifications of LLM-based modules. Specifically, it allows us to unify <b>1)</b> a broad set of embodied decision making tasks involving both state and temporally extended goals, <b>2)</b> four commonly-used LLM-based modules for decision making: goal interpretation, subgoal decomposition, action sequencing, and transition modeling, and <b>3)</b> a collection of fine-grained metrics which break down evaluation into various types of errors, such as hallucination errors, affordance errors, various types of planning errors, etc.
-                        </p>
-                        <p>
-                            <b>Conclusion:</b> Overall, our benchmark offers a comprehensive and systematic assessment of LLMs' performance for different subtasks, pinpointing the strengths and weaknesses in LLM-powered embodied AI systems, and providing insights for effective and selective use of LLMs in embodied decision making.
-                        </p>
-                    </div>
-                    <figure>
-                        <img src="website/img/teaser.png" alt="Embodied agent interface overview." class="EAgent_overview_image"/>
-                        <figcaption  style="font-style: italic;">
-                            <b>Figure 1:</b> <b>Embodied Agent Interface</b> unifies a broad set of tasks involving both state and temporally extended goals and four LLM-based modules for decision making.
-                        </figcaption>
-                    </figure>
-                </div>
-            </div>
-            <!--/ Abstract. -->
-        </div>
-    </section>
+    
+    
 
     <!-- <section class="section" id="dataset_viewer">
         <div class="container is-max-desktop">
@@ -3914,76 +4016,8 @@
     <section class="section" id="embodied_agent_interface_detail">
         <div class="container is-max-desktop">
             <div class="hero-body">
-                <!-- <div class="column is-full-width"> -->
-                    <h2 class="title is-2" style="text-align: center;">Embodied Agent Interface</h2>
-                    <br>
-                    <div class="content has-text-justified">
-                        <p>
-                            In our Embodied Agent Interface, we propose a set of ability modules to evaluate LLMs for embodied decision making. The four ability modules are: Goal Interpretation, Subgoal Decomposition, Action Sequencing, and Transition Modeling. We provide a detailed description of each module below.
-                        </p>
-                        <h3 class="title is-4">Ability Module 1: Goal Interpretation</h3>
-                        <video id="goal-interpretation-video" muted loop playsinline controls width="100%">
-                            <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-1-goal.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <br>
-                        <br>
-                        <p>
-                            Goal Interpretation aims to ground the natural language instruction to the environment representations of objects, states, relations, and actions. For example, the task instruction "Use the rag to clean the trays, the bowl, and the refrigerator. When you are done, leave the rag next to the sink..." can be grounded to specific objects with IDs, such as fridge (ID: 97), tray (ID: 1), bowl (ID: 1), rag (ID: 0), and sink (ID: 82). Note that a simple natural language description can be grounded into a set of multiple goal conditions (object state and relation). 
-                        </p>
-                        
-                        <h3 class="title is-4">Ability Module 2: Subgoal Decomposition</h3>
-                        <video id="subgoal-video" muted loop playsinline controls width="100%">
-                            <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-2-subgoal.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <br>
-                        <br>
-                        <p>
-                            Subgoal Decomposition generates a sequence of states, where each state can be a set of objects and their states. Here, we highlight the important states, such as the transitions between a sequence of next_to(rag.0, sink.82), toggled_on(sink.82), soaked(rag.0), toggled_off(sink.82), open(fridge.97), not_stained(fridge.97). To achieve these state transitions, we can use a high-level planner such as BFS to search for the Action Sequences that achieve these state transitions. We obtain the following action sequence: RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82), TOGGLE_ON(sink.82), SOAK(rag.0), TOGGLE_OFF(sink.82), OPEN(fridge.97), CLEAN(fridge.97). Note that multiple actions may be required to achieve a single one-step state transition. For example, to perform the state transition next_to(rag.0, sink.82) → toggled_on(sink.82), we need two actions RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82). See <a href="#EAgent_taxtonomy_example">Figure 2</a> for the input and output formulation.
-                        </p>
-
-                        <figure id="EAgent_taxtonomy_example">
-                            <img src="website/img/taxonomy-ability.png" alt="Embodied agent interface taxonomy example." class="EAgent_taxtonomy_image" style="width: 75%;"/>
-                            <figcaption>
-                                <b>Figure 2:</b> The input and output formulation of four ability modules for <b>Embodied Agent Interface</b>.
-                            </figcaption>
-                        </figure>
-                        
-                        <h3 class="title is-4">Ability Module 3: Action Sequencing</h3>
-                        <video id="action-sequencing-video" muted loop playsinline controls width="100%">
-                            <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-3-action.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <br>
-                        <br>
-                        <p>
-                            Action Sequences are essential to achieve the state transitions identified in Subgoal Decomposition. For example, a successful execution of the action sequence RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82), TOGGLE_ON(sink.82), SOAK(rag.0), TOGGLE_OFF(sink.82), OPEN(fridge.97), CLEAN(fridge.97) is shown in <a href="#EAgent_excution_example">Figure 3</a>.
-                        </p>
-                        
-                        <h3 class="title is-4">Ability Module 4: Transition Modeling</h3>
-                        <video id="transition-modeling-video" muted loop playsinline controls width="100%">
-                            <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/website/videos/eai-4-transition.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        <br>
-                        <br>
-                        <p>
-                            Transition Modeling serves as the low-level controller to guide the simulator in performing state transitions from preconditions to post-effects. For example, in cleaning task, the input is the operator name soak, and the preconditions are three states: holding (?obj1), next_to (?sink ?agent), and toggled_on (?sink). The post effect after executing SOAK is soaked (?obj1).
-                        </p>
-                        
-                        
-                        
-                        <figure id="EAgent_excution_example">
-                            <img src="website/img/excution_example.png" alt="Example of successful execution in Embodied Agent Interface." class="EAgent_excution_image" style="width: 75%;"/>
-                            <figcaption>
-                                <b>Figure 3:</b> An example of successful execution in <b>Embodied Agent Interface</b>.
-                            </figcaption>
-                        </figure>
-                    </div>
-                <!-- </div> -->
+                
                 <div class="column is-centered">
-
                     <h2 class="title is-2" style="text-align: center;">Evaluation Setup</h2>
 
                     <br>
