@@ -314,12 +314,31 @@
             <div class="columns is-centered has-text-centered">
                 <div class="column">
                     <div class="column">
+                        <!-- Raw video link button
                         <a href="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/eai.mp4" target="_blank" class="button is-light">
+                            <span class="icon">
+                                <i class="fas fa-download"></i>
+                            </span>
+                            <span>Download Full Video</span>
+                        </a>
+                        &nbsp;&nbsp; -->
+                        <!-- Toggle button with consistent style -->
+                        <button class="button is-light toggle-section" aria-controls="full_demo_video">
                             <span class="icon">
                                 <i class="fas fa-play"></i>
                             </span>
-                            <span>Watch Full Demo Video</span>
-                        </a>
+                            <span>Watch Full Demo</span>
+                            <span class="icon">
+                                <i class="fas fa-angle-down" style="margin-left: 5px;"></i>
+                            </span>
+                        </button>
+                        <!-- Collapsible video container -->
+                        <div id="full_demo_video" class="collapse-content" style="margin-top: 1rem;">
+                            <video id="demo" controls width="100%">
+                                <source src="https://github.com/embodied-agent-eval/embodied-agent-eval.github.io/raw/main/eai.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
                     </div>
                 </div>
             </div>
