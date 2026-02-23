@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>EAI Challenge @ CVPR 2026 — Embodied Agent Interface</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    <link rel="stylesheet" href="../website/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    <link rel="stylesheet" href="../website/css/fontawesome.all.min.css">
+    <script defer src="../website/javascript/fontawesome.all.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <style>
+        :root {
+            --primary: #3273dc;
+            --primary-light: #e8f0fe;
+            --text: #363636;
+            --text-light: #555;
+            --bg-light: #f9fafb;
+            --border: #e5e7eb;
+            --success: #48c774;
+            --warning: #ffdd57;
+            --danger: #f14668;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background: #fff;
+            border-bottom: 1px solid var(--border);
+            padding: 0.75rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+        .navbar-custom .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .navbar-brand-text {
+            font-family: 'Google Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text) !important;
+            text-decoration: none !important;
+        }
+        .navbar-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .navbar-links a {
+            color: var(--text-light) !important;
+            text-decoration: none !important;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .navbar-links a:hover {
+            color: var(--primary) !important;
+        }
+
+        /* Hero */
+        .hero-challenge {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            padding: 4rem 1.5rem 3rem;
+            text-align: center;
+        }
+        .hero-challenge h1 {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .hero-challenge .subtitle {
+            font-size: 1.15rem;
+            opacity: 0.9;
+            margin-bottom: 0.3rem;
+        }
+        .hero-challenge .venue-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            padding: 0.3rem 1rem;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+        .hero-challenge .venue-badge a {
+            color: #88c0ff !important;
+            text-decoration: underline !important;
+        }
+        .hero-buttons {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .hero-buttons a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none !important;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .hero-buttons a:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .btn-primary-hero {
+            background: #fff;
+            color: #1a1a2e !important;
+        }
+        .btn-outline-hero {
+            background: transparent;
+            color: #fff !important;
+            border: 1.5px solid rgba(255,255,255,0.5);
+        }
+
+        /* Sections */
+        .challenge-section {
+            padding: 3rem 1.5rem;
+        }
+        .challenge-section:nth-child(even) {
+            background: var(--bg-light);
+        }
+        .challenge-section .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .section-title {
+            font-family: 'Google Sans', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+
+        /* Cards */
+        .info-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: box-shadow 0.2s;
+        }
+        .info-card:hover {
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+        .info-card h4 {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+        }
+
+        /* Task grid */
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .task-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem;
+            text-align: center;
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+        .task-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .task-card .task-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .task-card h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+        .task-card p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin-top: 1rem;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 5px;
+            bottom: 5px;
+            width: 2px;
+            background: var(--border);
+        }
+        .timeline-item {
+            position: relative;
+            padding-bottom: 1.25rem;
+            padding-left: 1rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -1.55rem;
+            top: 6px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 2px solid #fff;
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        .timeline-item.completed::before {
+            background: var(--success);
+            box-shadow: 0 0 0 2px var(--success);
+        }
+        .timeline-item.upcoming::before {
+            background: #fff;
+            border: 2px solid var(--primary);
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        .timeline-date {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--primary);
+        }
+        .timeline-desc {
+            font-size: 0.95rem;
+            color: var(--text-light);
+        }
+
+        /* Data table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        .data-table th {
+            background: var(--primary);
+            color: #fff;
+            padding: 0.65rem 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        .data-table td {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table tr:hover td {
+            background: var(--primary-light);
+        }
+
+        /* Leaderboard */
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+        .leaderboard-table th {
+            background: var(--primary);
+            color: #fff;
+            padding: 0.65rem 1rem;
+            text-align: center;
+            font-weight: 600;
+            cursor: pointer;
+            user-select: none;
+        }
+        .leaderboard-table th:hover {
+            background: #2260c0;
+        }
+        .leaderboard-table td {
+            padding: 0.6rem 1rem;
+            border-bottom: 1px solid var(--border);
+            text-align: center;
+        }
+        .leaderboard-table tr:hover td {
+            background: var(--primary-light);
+        }
+        .rank-badge {
+            display: inline-block;
+            width: 28px;
+            height: 28px;
+            line-height: 28px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        .rank-badge.gold { background: #ffd700; color: #333; }
+        .rank-badge.silver { background: #c0c0c0; color: #333; }
+        .rank-badge.bronze { background: #cd7f32; color: #fff; }
+
+        /* Status badges */
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.65rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .badge-available {
+            background: #d4edda;
+            color: #155724;
+        }
+        .badge-coming {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        /* Code block */
+        pre.code-block {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 8px;
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-size: 0.88rem;
+            line-height: 1.5;
+            margin-top: 1rem;
+        }
+        pre.code-block .key { color: #89b4fa; }
+        pre.code-block .str { color: #a6e3a1; }
+        pre.code-block .comment { color: #6c7086; font-style: italic; }
+
+        /* Footer */
+        .footer-challenge {
+            background: #1a1a2e;
+            color: rgba(255,255,255,0.7);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+        .footer-challenge a {
+            color: #88c0ff !important;
+        }
+
+        /* Organizer grid */
+        .organizer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        .organizer-item {
+            font-size: 0.93rem;
+        }
+        .organizer-item .name {
+            font-weight: 600;
+        }
+        .organizer-item .affil {
+            font-size: 0.82rem;
+            color: var(--text-light);
+        }
+
+        /* Prize cards */
+        .prize-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .prize-card {
+            text-align: center;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.25rem 1rem;
+            background: #fff;
+        }
+        .prize-card .prize-icon {
+            font-size: 2rem;
+            margin-bottom: 0.3rem;
+        }
+        .prize-card .prize-label {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .prize-card .prize-amount {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-challenge h1 { font-size: 1.6rem; }
+            .hero-challenge .subtitle { font-size: 1rem; }
+            .task-grid { grid-template-columns: 1fr 1fr; }
+            .navbar-links { gap: 1rem; }
+        }
+        @media (max-width: 480px) {
+            .task-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar-custom">
+    <div class="container">
+        <a class="navbar-brand-text" href="../">Embodied Agent Interface</a>
+        <div class="navbar-links">
+            <a href="#overview">Overview</a>
+            <a href="#tasks">Tasks</a>
+            <a href="#data">Data</a>
+            <a href="#evaluation">Evaluation</a>
+            <a href="#timeline">Timeline</a>
+            <a href="#submission">Submission</a>
+            <a href="#leaderboard">Leaderboard</a>
+            <a href="#organizers">Organizers</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero-challenge">
+    <h1>EAI Challenge @ CVPR 2026</h1>
+    <p class="subtitle">Embodied Agent Interface: Evaluating LLMs for Embodied Decision Making</p>
+    <p class="subtitle" style="font-size: 1rem; opacity: 0.8;">VirtualHome Track</p>
+    <div class="venue-badge">
+        Part of <a href="https://foundation-models-meet-embodied-agents.github.io/cvpr2026/" target="_blank">Foundation Models Meet Embodied Agents (FMEA) Workshop @ CVPR 2026</a>
+    </div>
+    <div class="hero-buttons">
+        <a class="btn-primary-hero" href="https://github.com/embodied-agent-interface/embodied-agent-interface" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+        </a>
+        <a class="btn-outline-hero" href="https://arxiv.org/abs/2410.07166" target="_blank">
+            <i class="ai ai-arxiv"></i> Paper
+        </a>
+        <a class="btn-outline-hero" href="#submission">
+            <i class="fas fa-upload"></i> Submit
+        </a>
+        <a class="btn-outline-hero" href="https://embodied-agent-interface.github.io" target="_blank">
+            <i class="fas fa-home"></i> Project Page
+        </a>
+    </div>
+</section>
+
+<!-- Overview -->
+<section id="overview" class="challenge-section">
+    <div class="container">
+        <h2 class="section-title">Challenge Overview</h2>
+        <p>
+            The <strong>Embodied Agent Interface (EAI) Challenge</strong> invites participants to develop and evaluate
+            Large Language Models (LLMs) for embodied reasoning through our standardized evaluation protocol.
+            This challenge is part of the
+            <a href="https://foundation-models-meet-embodied-agents.github.io/cvpr2026/" target="_blank">FMEA Workshop at CVPR 2026</a>.
+        </p>
+        <p style="margin-top: 0.75rem;">
+            Unlike typical evaluations that only report success rates, our framework provides <strong>fine-grained
+            metrics</strong> that examine both whether proposed actions could actually work in practice and if they truly
+            accomplish the intended goals. The challenge uses the <strong>VirtualHome</strong> simulator with annotations
+            including Linear Temporal Logic (LTL) specifications and comprehensive error analysis.
+        </p>
+        <div class="info-card" style="margin-top: 1.25rem; border-left: 4px solid var(--primary);">
+            <h4>What's New in 2026</h4>
+            <ul style="margin: 0; padding-left: 1.2rem;">
+                <li>Focused exclusively on <strong>VirtualHome</strong> environment for deeper, more targeted evaluation</li>
+                <li>Part of the FMEA Workshop alongside ENAcT and EmbodiedBench challenges</li>
+                <li>Updated evaluation suite with enhanced metrics</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Tasks -->
+<section id="tasks" class="challenge-section">
+    <div class="container">
+        <h2 class="section-title">Evaluation Tasks</h2>
+        <p>The challenge assesses four critical capabilities for embodied reasoning:</p>
+        <div class="task-grid">
+            <div class="task-card">
+                <div class="task-icon">&#127919;</div>
+                <h4>Goal Interpretation</h4>
+                <p>Understanding and interpreting high-level task objectives in embodied environments</p>
+            </div>
+            <div class="task-card">
+                <div class="task-icon">&#129702;</div>
+                <h4>Subgoal Decomposition</h4>
+                <p>Breaking down complex goals into manageable intermediate subgoals</p>
+            </div>
+            <div class="task-card">
+                <div class="task-icon">&#128221;</div>
+                <h4>Action Sequencing</h4>
+                <p>Planning and ordering executable actions to accomplish each subgoal</p>
+            </div>
+            <div class="task-card">
+                <div class="task-icon">&#127760;</div>
+                <h4>Transition Modeling</h4>
+                <p>Understanding how actions change the world state in the environment</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Data -->
+<section id="data" class="challenge-section">
+    <div class="container">
+        <h2 class="section-title">Data</h2>
+        <p>
+            All data and evaluation are conducted within the <strong>VirtualHome</strong> simulator.
+            We provide datasets and starter code through our GitHub repository.
+        </p>
+        <table class="data-table" style="margin-top: 1rem;">
+            <thead>
+                <tr>
+                    <th>Split</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Training</strong></td>
+                    <td>Training data with ground-truth annotations</td>
+                    <td><span class="badge badge-coming">Coming Soon</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Validation</strong></td>
+                    <td>Validation set for development and tuning</td>
+                    <td><span class="badge badge-coming">Coming Soon</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Test</strong></td>
+                    <td>Held-out test set for final evaluation</td>
+                    <td><span class="badge badge-coming">Coming Soon</span></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="info-card" style="margin-top: 1.25rem;">
+            <h4>Resources</h4>
+            <ul style="margin: 0; padding-left: 1.2rem;">
+                <li><a href="https://github.com/embodied-agent-interface/embodied-agent-interface" target="_blank">GitHub Repository</a> — Baselines, data loaders, and starter code</li>
+                <li><a href="https://huggingface.co/EmbodiedAgentInterface" target="_blank">Hugging Face</a> — Datasets and model checkpoints</li>
+                <li><a href="https://pypi.org/project/embodied-agent-interface/" target="_blank">PyPI Package</a> — <code>pip install embodied-agent-interface</code></li>
+                <li><a href="https://hub.docker.com/r/simonbao/embodied-agent-interface" target="_blank">Docker</a> — Pre-configured environment</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Evaluation -->
+<section id="evaluation" class="challenge-section">
+    <div class="container">
+        <h2 class="section-title">Evaluation</h2>
+        <p>
+            Our evaluation framework goes beyond simple success rates. We employ fine-grained metrics across
+            all four task dimensions to measure both the <em>executability</em> and <em>correctness</em> of
+            agent outputs.
+        </p>
+        <div class="info-card" style="margin-top: 1rem;">
+            <h4>Evaluation Dimensions</h4>
+            <ul style="padding-left: 1.2rem; margin: 0;">
+                <li><strong>Goal Interpretation:</strong> Accuracy of interpreting task goals against ground-truth LTL specifications</li>
+                <li><strong>Subgoal Decomposition:</strong> Quality of intermediate subgoal generation</li>
+                <li><strong>Action Sequencing:</strong> Executability and goal-completion of action plans in VirtualHome</li>
+                <li><strong>Transition Modeling:</strong> Accuracy of predicted state changes after actions</li>
+            </ul>
+        </div>
+        <p style="margin-top: 1rem;">
+            Teams are ranked by a <strong>weighted overall score</strong> combining metrics across all four tasks.
+            Detailed evaluation criteria and scoring rubrics will be released with the data.
+        </p>
+    </div>
+</section>
+
+<!-- Timeline -->
+<section id="timeline" class="challenge-section">
+    <div class="container">
+        <h2 class="section-title">Timeline</h2>
+        <div class="timeline">
+            <div class="timeline-item upcoming">
+                <div class="timeline-date">March 2026</div>
+                <div class="timeline-desc">Challenge announced & platform setup</div>
+            </div>
+            <div class="timeline-item upcoming">
+                <div class="timeline-date">April 2026</div>
+                <div class="timeline-desc">Training & validation data released</div>
+            </div>
+            <div class="timeline-item upcoming">
+                <div class="timeline-date">April – May 2026</div>
+                <div class="timeline-desc">Development phase with leaderboard open for submissions</div>
+            </div>
+            <div class="timeline-item upcoming">
+                <div class="timeline-date">June 2026</div>
+                <div class="timeline-desc">Test phase & final evaluation</div>
+            </div>
+            <div class="timeline-item upcoming">
+                <div class="timeline-date">June 2026 (CVPR)</div>
+                <div class="timeline-desc">Winners announced & presentations at FMEA Workshop</div>
+            </div>
+        </div>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem; color: var(--text-light);">
+            * Exact dates will be announced soon. Stay tuned!
+        </p>
+    </div>
+</section>
+
+<!-- Prizes -->
+<section id="prizes" class="challenge-section">
+    <div class="container">
+        <h2 class="section-title">Prizes</h2>
+        <div class="prize-grid">
+            <div class="prize-card">
+                <div class="prize-icon">&#129351;</div>
+                <div class="prize-label">1st Place</div>
+                <div class="prize-amount">TBD</div>
+            </div>
+            <div class="prize-card">
+                <div class="prize-icon">&#129352;</div>
+                <div class="prize-label">2nd Place</div>
+                <div class="prize-amount">TBD</div>
+            </div>
+            <div class="prize-card">
+                <div class="prize-icon">&#129353;</div>
+                <div class="prize-label">3rd Place</div>
+                <div class="prize-amount">TBD</div>
+            </div>
+            <div class="prize-card">
+                <div class="prize-icon">&#128161;</div>
+                <div class="prize-label">Most Innovative</div>
+                <div class="prize-amount">TBD</div>
+            </div>
+        </div>
+        <p style="margin-top: 1rem; font-size: 0.93rem; color: var(--text-light);">
+            Honorable mentions will be awarded for top performance in individual tasks:
+            Goal Interpretation, Subgoal Decomposition, Action Sequencing, and Transition Modeling.
+        </p>
+    </div>
+</section>
+
+<!-- Submission -->
+<section id="submission" class="challenge-section">
+    <div class="container">
+        <h2 class="section-title">Submission</h2>
+
+        <div class="info-card" style="border-left: 4px solid var(--primary);">
+            <h4>Submission Format</h4>
+            <p>
+                Participants should submit their model outputs following the format specified in our evaluation toolkit.
+                Detailed submission instructions will be provided when the challenge officially opens.
+            </p>
+        </div>
+
+        <div class="info-card" style="margin-top: 1rem;">
+            <h4>Rules</h4>
+            <ul style="padding-left: 1.2rem; margin: 0;">
+                <li>Use of external resources (pretrained models, additional data) is allowed but must be disclosed</li>
+                <li>Manual labeling or annotation of test data is strictly prohibited</li>
+                <li>Top-performing teams may be asked to share code for verification</li>
+                <li>Each team may submit up to <strong>5 submissions</strong> during the evaluation phase</li>
+                <li>No restriction on team size, but each team must submit under a single team name</li>
+                <li>By participating, teams agree to have their results published on the leaderboard</li>
+            </ul>
+        </div>
+
+        <div class="info-card" style="margin-top: 1rem;">
+            <h4>Submission Portal</h4>
+            <p>
+                The submission portal will be available soon.
+                <!-- Submissions are handled through <a href="#" target="_blank">EvalAI</a>. -->
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Leaderboard -->
+<section id="leaderboard" class="challenge-section">
+    <div class="container">
+        <h2 class="section-title">Leaderboard</h2>
+        <p>The leaderboard will be updated once the challenge officially opens and submissions begin.</p>
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Team / Method</th>
+                    <th>Overall</th>
+                    <th>Goal Interp.</th>
+                    <th>Subgoal Decomp.</th>
+                    <th>Action Seq.</th>
+                    <th>Transition</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="7" style="text-align: center; color: var(--text-light); padding: 2rem;">
+                        Coming soon — challenge has not yet started.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Past Results -->
+<section id="past-results" class="challenge-section">
+    <div class="container">
+        <h2 class="section-title">Past Challenge</h2>
+        <div class="info-card">
+            <h4>EAI Challenge @ NeurIPS 2025</h4>
+            <p>
+                Our previous challenge was held at <strong>NeurIPS 2025</strong> (December 7, 2025, San Diego).
+                It evaluated both VirtualHome and BEHAVIOR environments. See the
+                <a href="https://foundation-models-meet-embodied-agents.github.io/eai_challenge/" target="_blank">results and details here</a>.
+            </p>
+            <p style="margin-top: 0.5rem;"><strong>Winners:</strong></p>
+            <ul style="padding-left: 1.2rem; margin: 0;">
+                <li>1st Place: <strong>AxisTilted2</strong></li>
+                <li>2nd Place: <strong>SingaX</strong></li>
+                <li>3rd Place: <strong>CtrlAct</strong></li>
+                <li>Most Innovative: <strong>nju-lamda12</strong></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Organizers -->
+<section id="organizers" class="challenge-section">
+    <div class="container">
+        <h2 class="section-title">Organizers</h2>
+        <div class="organizer-grid">
+            <div class="organizer-item">
+                <div class="name"><a href="https://limanling.github.io/" target="_blank">Manling Li</a></div>
+                <div class="affil">Northwestern University</div>
+            </div>
+            <div class="organizer-item">
+                <div class="name"><a href="https://tianwei-bao.github.io/" target="_blank">Tianwei Bao</a></div>
+                <div class="affil">Northwestern University</div>
+            </div>
+            <div class="organizer-item">
+                <div class="name">Kangrui Wang</div>
+                <div class="affil">Northwestern University</div>
+            </div>
+            <div class="organizer-item">
+                <div class="name">Bryan Yu Zhou</div>
+                <div class="affil">UCLA</div>
+            </div>
+            <div class="organizer-item">
+                <div class="name"><a href="https://liermanli.com/" target="_blank">Li Erran Li</a></div>
+                <div class="affil">Amazon / Columbia</div>
+            </div>
+            <div class="organizer-item">
+                <div class="name"><a href="https://ai.stanford.edu/~zharu/" target="_blank">Ruohan Zhang</a></div>
+                <div class="affil">Stanford University</div>
+            </div>
+            <div class="organizer-item">
+                <div class="name"><a href="https://weiyu-l.github.io/" target="_blank">Weiyu Liu</a></div>
+                <div class="affil">Stanford University</div>
+            </div>
+            <div class="organizer-item">
+                <div class="name"><a href="https://jiayuanm.com/" target="_blank">Jiayuan Mao</a></div>
+                <div class="affil">Amazon FAR / UPenn</div>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 2rem; font-size: 1.1rem; font-weight: 700;">Steering Committee</h3>
+        <div class="organizer-grid" style="margin-top: 0.5rem;">
+            <div class="organizer-item">
+                <div class="name"><a href="https://cs.stanford.edu/~pliang/" target="_blank">Percy Liang</a></div>
+                <div class="affil">Stanford University</div>
+            </div>
+            <div class="organizer-item">
+                <div class="name"><a href="https://homes.cs.washington.edu/~yejin/" target="_blank">Yejin Choi</a></div>
+                <div class="affil">NVIDIA / Stanford</div>
+            </div>
+            <div class="organizer-item">
+                <div class="name"><a href="https://profiles.stanford.edu/fei-fei-li" target="_blank">Fei-Fei Li</a></div>
+                <div class="affil">Stanford University</div>
+            </div>
+            <div class="organizer-item">
+                <div class="name"><a href="https://jiajunwu.com/" target="_blank">Jiajun Wu</a></div>
+                <div class="affil">Stanford University</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="challenge-section">
+    <div class="container">
+        <h2 class="section-title">Contact</h2>
+        <p>
+            For questions about the challenge, please reach out to us:
+        </p>
+        <ul style="padding-left: 1.2rem;">
+            <li>Email: <a href="mailto:TianweiBao@u.northwestern.edu">TianweiBao@u.northwestern.edu</a></li>
+            <li>GitHub: <a href="https://github.com/embodied-agent-interface/embodied-agent-interface/issues" target="_blank">Open an issue</a></li>
+        </ul>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer-challenge">
+    <p>
+        EAI Challenge @ CVPR 2026 &mdash;
+        <a href="https://foundation-models-meet-embodied-agents.github.io/cvpr2026/" target="_blank">FMEA Workshop</a> &mdash;
+        <a href="https://embodied-agent-interface.github.io" target="_blank">Embodied Agent Interface</a>
+    </p>
+</footer>
+
+</body>
+</html>
