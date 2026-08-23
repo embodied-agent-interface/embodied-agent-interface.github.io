@@ -1,0 +1,79 @@
+# Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making (full reference)
+
+Paper: "Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making", arXiv 2410.07166, Oral at the NeurIPS 2024 Datasets and Benchmarks Track.
+Authors: Manling Li, Shiyu Zhao, Qineng Wang, Kangrui Wang, Yu Zhou, Sanjana Srivastava, Cem Gokmen, Tony Lee, Li Erran Li, Ruohan Zhang, Weiyu Liu, Percy Liang, Li Fei-Fei, Jiayuan Mao, Jiajun Wu.
+Affiliations: Stanford University, Northwestern University, Amazon, MIT.
+Project page: https://embodied-agent-interface.github.io/
+
+## FAQ
+
+### What is Embodied Agent Interface (EAI)?
+
+Embodied Agent Interface is an LLM agent benchmark for embodied decision making. It is a generalized interface that supports the formalization of various types of embodied tasks and the input-output specifications of LLM-based modules, so that Large Language Models can be evaluated systematically across subtasks rather than only by a final success rate. It unifies 1) a broad set of embodied decision making tasks involving both state and temporally extended goals, 2) four commonly used LLM-based modules for decision making, and 3) fine-grained metrics that break evaluation down into error types.
+
+### What are the four ability modules of Embodied Agent Interface?
+
+The four ability modules are Goal Interpretation, Subgoal Decomposition, Action Sequencing, and Transition Modeling. Each module has a formalized input-output specification so different LLMs can be plugged in and compared.
+
+### What is Goal Interpretation?
+
+Goal Interpretation grounds a natural language instruction to environment representations of objects, states, relations, and actions. For example, the instruction "Use the rag to clean the trays, the bowl, and the refrigerator" is grounded to specific objects with IDs, such as fridge (ID: 97), tray (ID: 1), bowl (ID: 1), and rag (ID: 0). A simple natural language description can be grounded into a set of multiple goal conditions.
+
+### What is Subgoal Decomposition?
+
+Subgoal Decomposition generates a sequence of states, where each state can be a set of objects and their states, for example the transitions between next_to(rag.0, sink.82), toggled_on(sink.82), soaked(rag.0), toggled_off(sink.82), open(fridge.97), and not_stained(fridge.97). A high-level planner such as BFS can then search for the action sequences that achieve these state transitions; multiple actions may be required to achieve a single one-step state transition.
+
+### What is Action Sequencing?
+
+Action Sequencing produces the action sequences needed to achieve the state transitions identified in Subgoal Decomposition, for example RIGHT_GRASP(rag.0), RIGHT_PLACE_NEXTTO(sink.82), TOGGLE_ON(sink.82), SOAK(rag.0), TOGGLE_OFF(sink.82), OPEN(fridge.97), CLEAN(fridge.97).
+
+### What is Transition Modeling?
+
+Transition Modeling serves as the low-level controller that guides the simulator in performing state transitions from preconditions to post-effects. For example, for the operator soak, the preconditions are holding(?obj1), next_to(?sink ?agent), and toggled_on(?sink), and the post-effect is soaked(?obj1).
+
+### Which simulators and datasets does Embodied Agent Interface use?
+
+It evaluates LLMs in two simulators chosen for task length and scene complexity: VirtualHome (26 task names, 338 task instructions, 801 annotated goals consisting of 340 states, 299 relations, and 162 actions) and BEHAVIOR (100 tasks, 673 annotated goals). There are 438 annotated trajectories (average 8.76 steps in VirtualHome and 14.6 steps in BEHAVIOR) and 63 annotated transition models. Each task instance includes the natural language task name and instruction, a symbolic goal definition (including its LTL form), a symbolic action trajectory, and the transition models involved; BEHAVIOR tasks also include VR human demonstration videos.
+
+### What fine-grained error types does the benchmark measure?
+
+Instead of a single success rate, Embodied Agent Interface reports fine-grained error types, including hallucination errors, affordance errors, grammar errors, and planning errors such as missing steps, wrong order, and extra steps. For example, in BEHAVIOR, GPT-4o encounters 36.0 percent missing step errors and 9.0 percent wrong order errors in action sequencing.
+
+### Which LLMs perform best on Embodied Agent Interface?
+
+For action sequencing, o1-preview has the highest task success rate (81.0 percent) and execution success rate (91.0 percent) in BEHAVIOR, while Mistral Large (73.4 percent) and Gemini 1.5 Pro (73.1 percent) outperform it in VirtualHome. For subgoal decomposition, o1-preview shows superior performance in VirtualHome (89.4 percent) and BEHAVIOR (57.0 percent), and Gemini 1.5 Flash also performs well in VirtualHome (89.1 percent). Gemini 1.5 Pro has the highest goal interpretation performance, while Claude-3 Opus excels in goal retrieval rate and makes no grammar errors in BEHAVIOR action sequencing.
+
+### What are the main empirical findings?
+
+LLMs struggle to translate natural language instructions into grounded states; common goal interpretation errors include generating intermediate goals and omitting spatial relationship goals. Trajectory feasibility errors are common (41.2 percent). Subgoal decomposition is not easier than action sequencing in abstract action spaces. LLMs perform better with state goals than relation goals and struggle with complex action goals. Task complexity lowers success rates: in BEHAVIOR, tasks with more than 10 goals have a success rate below 40 percent. In transition modeling, models excel in specific categories like object states and orientation, while non-spatial relations consistently pose a challenge.
+
+### How do I evaluate my own model on Embodied Agent Interface?
+
+You can evaluate a model with a single line of code. Install the toolkit with pip install eai-eval (https://pypi.org/project/eai-eval/), or use the Docker image (https://hub.docker.com/r/jameskrw/eai-eval). Documentation is at https://embodied-agent-eval.readthedocs.io/en/latest/ and the code is at https://github.com/embodied-agent-eval/embodied-agent-eval. The dataset is hosted on Hugging Face: https://huggingface.co/datasets/Inevitablevalor/EmbodiedAgentInterface.
+
+### Where was the paper published and is there a challenge?
+
+The paper was accepted for oral presentation at NeurIPS 2024 in the Datasets and Benchmarks track (arXiv 2410.07166, first posted 2024-10-09). Embodied Agent Interface also powers a CVPR 2026 challenge: https://eai-challenge-cvpr2026.github.io.
+
+## Key numbers at a glance
+
+- 4 ability modules: goal interpretation, subgoal decomposition, action sequencing, transition modeling.
+- 2 simulators: VirtualHome and BEHAVIOR.
+- 438 task instructions (338 VirtualHome, 100 BEHAVIOR); 1,474 annotated goals (801 VirtualHome, 673 BEHAVIOR).
+- 438 annotated trajectories; 2,960 steps in VirtualHome (avg 8.76) and 1,460 in BEHAVIOR (avg 14.6).
+- 63 annotated transition models (33 VirtualHome, 30 BEHAVIOR) with 183 preconditions and 108 effects.
+- 80.7 percent of VirtualHome task categories include instructions longer than 10 action steps.
+- BEHAVIOR goals average 6.7 grounded goals and 4,164.4 goal options per task.
+- o1-preview: 81.0 percent task success and 91.0 percent execution success in BEHAVIOR action sequencing; 89.4 percent (VirtualHome) and 57.0 percent (BEHAVIOR) in subgoal decomposition.
+- Trajectory feasibility errors: 41.2 percent.
+
+## BibTeX
+
+```
+@inproceedings{li2024embodied,
+    title={Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making},
+    author={Li, Manling and Zhao, Shiyu and Wang, Qineng and Wang, Kangrui and Zhou, Yu and Srivastava, Sanjana and Gokmen, Cem and Lee, Tony and Li, Li Erran and Zhang, Ruohan and others},
+    booktitle={NeurIPS 2024},
+    year={2024}
+}
+```

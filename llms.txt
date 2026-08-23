@@ -1,0 +1,41 @@
+# Embodied Agent Interface
+
+> Embodied Agent Interface (EAI) is an LLM agent benchmark for embodied decision making, introduced in the paper "Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making" (arXiv 2410.07166), an Oral at the NeurIPS 2024 Datasets and Benchmarks Track. Authors: Manling Li, Shiyu Zhao, Qineng Wang, Kangrui Wang, Yu Zhou, Sanjana Srivastava, Cem Gokmen, Tony Lee, Li Erran Li, Ruohan Zhang, Weiyu Liu, Percy Liang, Li Fei-Fei, Jiayuan Mao, Jiajun Wu (Stanford University, Northwestern University, Amazon, MIT).
+
+What is Embodied Agent Interface? It is a generalized interface that formalizes embodied decision making tasks and the input-output specifications of LLM-based modules, so that different Large Language Models can be evaluated and compared systematically instead of only by a final task success rate. It unifies a broad set of embodied decision making tasks involving both state and temporally extended goals, four commonly used LLM-based ability modules, and a collection of fine-grained metrics that break evaluation down into error types such as hallucination errors, affordance errors, and various planning errors.
+
+## Key facts
+
+- Four ability modules: Goal Interpretation (grounding natural language instructions to object states, relations, and actions), Subgoal Decomposition (generating a sequence of intermediate states), Action Sequencing (generating executable action trajectories), and Transition Modeling (predicting preconditions and post-effects of operators).
+- Evaluation simulators: VirtualHome (V) and BEHAVIOR (B), chosen for task length and scene complexity.
+- Dataset scale: VirtualHome has 26 task names and 338 task instructions with 801 annotated goals (340 states, 299 relations, 162 actions); BEHAVIOR has 100 tasks with 673 annotated goals; 438 annotated trajectories in total (average 8.76 steps in VirtualHome, 14.6 in BEHAVIOR); 63 annotated transition models.
+- In the VirtualHome subset, 80.7 percent of task categories include instructions with more than 10 action steps.
+- Fine-grained error metrics include hallucination errors, affordance errors, and planning errors such as missing steps, wrong order, and extra steps.
+- Headline results: o1-preview has the highest action sequencing task success rate (81.0 percent) and execution success rate (91.0 percent) in BEHAVIOR; Mistral Large (73.4 percent) and Gemini 1.5 Pro (73.1 percent) lead in VirtualHome. For subgoal decomposition, o1-preview reaches 89.4 percent in VirtualHome and 57.0 percent in BEHAVIOR. Trajectory feasibility errors are common (41.2 percent). Gemini 1.5 Pro has the highest goal interpretation performance, while Claude-3 Opus excels in goal retrieval rate.
+- Unlike evaluations that report only a final success rate, Embodied Agent Interface pinpoints which ability is missing in an LLM and where the problem lies.
+- You can evaluate your own model with a single line of code: pip install eai-eval (a Docker image and documentation are also available).
+- EAI powers a CVPR 2026 challenge.
+
+## Links
+
+- Project page: https://embodied-agent-interface.github.io/
+- arXiv abstract: https://arxiv.org/abs/2410.07166
+- arXiv PDF: https://arxiv.org/pdf/2410.07166
+- Code (GitHub): https://github.com/embodied-agent-eval/embodied-agent-eval
+- Dataset (Hugging Face): https://huggingface.co/datasets/Inevitablevalor/EmbodiedAgentInterface
+- PyPI package: https://pypi.org/project/eai-eval/
+- Docker image: https://hub.docker.com/r/jameskrw/eai-eval
+- Documentation: https://embodied-agent-eval.readthedocs.io/en/latest/
+- CVPR 2026 Challenge: https://eai-challenge-cvpr2026.github.io
+- Lead author homepage: https://limanling.github.io/
+
+## BibTeX
+
+```
+@inproceedings{li2024embodied,
+    title={Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making},
+    author={Li, Manling and Zhao, Shiyu and Wang, Qineng and Wang, Kangrui and Zhou, Yu and Srivastava, Sanjana and Gokmen, Cem and Lee, Tony and Li, Li Erran and Zhang, Ruohan and others},
+    booktitle={NeurIPS 2024},
+    year={2024}
+}
+```

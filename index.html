@@ -2,11 +2,130 @@
 <html>
 
 <head>
+    <meta charset="utf-8">
     <title>Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making</title>
     <!-- consider to add our icon here -->
     <!-- <link rel="icon" href="" type="image/icon type"> -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- SEO metadata -->
+    <meta name="description" content="An LLM agent benchmark for embodied decision making: goal interpretation, subgoal decomposition, action sequencing, transition modeling. NeurIPS 2024 Oral.">
+    <meta name="keywords" content="Embodied Agent Interface, EAI, LLM agent benchmark, embodied decision making, embodied AI, LLM evaluation, goal interpretation, subgoal decomposition, action sequencing, transition modeling, VirtualHome, BEHAVIOR, NeurIPS 2024">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+    <link rel="canonical" href="https://embodied-agent-interface.github.io/">
+
+    <!-- Open Graph / Twitter card -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://embodied-agent-interface.github.io/">
+    <meta property="og:site_name" content="Embodied Agent Interface">
+    <meta property="og:title" content="Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making">
+    <meta property="og:description" content="An LLM agent benchmark for embodied decision making: goal interpretation, subgoal decomposition, action sequencing, transition modeling. NeurIPS 2024 Oral.">
+    <meta property="og:image" content="https://embodied-agent-interface.github.io/website/img/og-card.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Embodied Agent Interface teaser figure">
+    <meta property="og:locale" content="en_US">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making">
+    <meta name="twitter:description" content="An LLM agent benchmark for embodied decision making: goal interpretation, subgoal decomposition, action sequencing, transition modeling. NeurIPS 2024 Oral.">
+    <meta name="twitter:image" content="https://embodied-agent-interface.github.io/website/img/og-card.jpg">
+
+    <!-- Google Scholar (Highwire) tags -->
+    <meta name="citation_title" content="Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making">
+    <meta name="citation_author" content="Manling Li">
+    <meta name="citation_author" content="Shiyu Zhao">
+    <meta name="citation_author" content="Qineng Wang">
+    <meta name="citation_author" content="Kangrui Wang">
+    <meta name="citation_author" content="Yu Zhou">
+    <meta name="citation_author" content="Sanjana Srivastava">
+    <meta name="citation_author" content="Cem Gokmen">
+    <meta name="citation_author" content="Tony Lee">
+    <meta name="citation_author" content="Li Erran Li">
+    <meta name="citation_author" content="Ruohan Zhang">
+    <meta name="citation_author" content="Weiyu Liu">
+    <meta name="citation_author" content="Percy Liang">
+    <meta name="citation_author" content="Li Fei-Fei">
+    <meta name="citation_author" content="Jiayuan Mao">
+    <meta name="citation_author" content="Jiajun Wu">
+    <meta name="citation_publication_date" content="2024/10/09">
+    <meta name="citation_conference_title" content="NeurIPS 2024 Datasets and Benchmarks Track">
+    <meta name="citation_arxiv_id" content="2410.07166">
+    <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2410.07166">
+    <meta name="citation_abstract_html_url" content="https://arxiv.org/abs/2410.07166">
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "ScholarlyArticle",
+          "@id": "https://embodied-agent-interface.github.io/#paper",
+          "headline": "Embodied Agent Interface: Benchmarking LLMs for Embodied Decision Making",
+          "url": "https://embodied-agent-interface.github.io/",
+          "sameAs": "https://arxiv.org/abs/2410.07166",
+          "datePublished": "2024-10-09",
+          "abstract": "We aim to evaluate Large Language Models (LLMs) for embodied decision making. We propose a generalized interface (Embodied Agent Interface) that supports the formalization of various types of tasks and input-output specifications of LLM-based modules, unifying embodied decision-making tasks, four LLM-based modules (goal interpretation, subgoal decomposition, action sequencing, and transition modeling), and a collection of fine-grained metrics such as hallucination errors, affordance errors, and planning errors.",
+          "keywords": ["LLM agent benchmark", "embodied decision making", "embodied AI", "LLM evaluation", "goal interpretation", "subgoal decomposition", "action sequencing", "transition modeling", "VirtualHome", "BEHAVIOR"],
+          "author": [
+            {"@type": "Person", "name": "Manling Li", "@id": "https://limanling.github.io/#person", "url": "https://limanling.github.io/"},
+            {"@type": "Person", "name": "Shiyu Zhao"},
+            {"@type": "Person", "name": "Qineng Wang"},
+            {"@type": "Person", "name": "Kangrui Wang"},
+            {"@type": "Person", "name": "Yu Zhou"},
+            {"@type": "Person", "name": "Sanjana Srivastava"},
+            {"@type": "Person", "name": "Cem Gokmen"},
+            {"@type": "Person", "name": "Tony Lee"},
+            {"@type": "Person", "name": "Li Erran Li"},
+            {"@type": "Person", "name": "Ruohan Zhang"},
+            {"@type": "Person", "name": "Weiyu Liu"},
+            {"@type": "Person", "name": "Percy Liang"},
+            {"@type": "Person", "name": "Li Fei-Fei"},
+            {"@type": "Person", "name": "Jiayuan Mao"},
+            {"@type": "Person", "name": "Jiajun Wu"}
+          ],
+          "citation": [
+            {"@type": "CreativeWork", "name": "VirtualHome"},
+            {"@type": "CreativeWork", "name": "BEHAVIOR"}
+          ]
+        },
+        {
+          "@type": "Dataset",
+          "@id": "https://embodied-agent-interface.github.io/#dataset",
+          "name": "Embodied Agent Interface",
+          "alternateName": "EAI",
+          "description": "Evaluation data for benchmarking LLMs on embodied decision making in the VirtualHome and BEHAVIOR simulators: 338 VirtualHome task instructions with 801 annotated goals and 100 BEHAVIOR task instructions with 673 annotated goals, plus 438 action trajectories and 63 transition models.",
+          "url": "https://huggingface.co/datasets/Inevitablevalor/EmbodiedAgentInterface",
+          "sameAs": [
+            "https://huggingface.co/datasets/Inevitablevalor/EmbodiedAgentInterface",
+            "https://arxiv.org/abs/2410.07166",
+            "https://github.com/embodied-agent-eval/embodied-agent-eval"
+          ]
+        },
+        {
+          "@type": "SoftwareSourceCode",
+          "@id": "https://embodied-agent-interface.github.io/#code",
+          "name": "eai-eval",
+          "description": "Evaluation toolkit for the Embodied Agent Interface benchmark; install with pip install eai-eval.",
+          "codeRepository": "https://github.com/embodied-agent-eval/embodied-agent-eval",
+          "programmingLanguage": "Python",
+          "sameAs": [
+            "https://pypi.org/project/eai-eval/",
+            "https://hub.docker.com/r/jameskrw/eai-eval"
+          ],
+          "softwareHelp": {"@type": "CreativeWork", "url": "https://embodied-agent-eval.readthedocs.io/en/latest/"}
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://embodied-agent-interface.github.io/#website",
+          "name": "Embodied Agent Interface",
+          "alternateName": "EAI",
+          "url": "https://embodied-agent-interface.github.io/"
+        }
+      ]
+    }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
